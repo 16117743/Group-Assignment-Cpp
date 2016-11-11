@@ -7,9 +7,13 @@ class BoardObject {
 public:
     int x;//x coordinates
     int y;//y coordinates
+    char id;
 
     BoardObject();
-    BoardObject(const BoardObject& orig);
+    BoardObject(int xx, int yy, char type);
+    BoardObject(const BoardObject& orig);//copy constructor
+
+//    BoardObject BoardObject::operator=(const BoardObject&mx)const;   
     virtual ~BoardObject();
 private:
 

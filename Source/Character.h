@@ -1,6 +1,6 @@
+#include "BoardObject.h"
 #ifndef Character_h
 #define Character_h  
-#include "BoardObject.h"
 #include <iostream>
 #include <string>
 
@@ -19,6 +19,9 @@ public:
     int strength;
 
     Character();
+    Character(int row, int col,char type);
+    Character(const Character& orig);
+    virtual ~Character();
 };
 #endif
 

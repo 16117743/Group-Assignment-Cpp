@@ -7,7 +7,7 @@ Enemy::Enemy() {
 }
 
 Enemy::Enemy(int row, int col) : Character (row,col, 'E'){
-    std::cout << "2 arg enemy constructor" << std::endl;
+    //std::cout << "2 arg enemy constructor" << std::endl;
 }
 
 Enemy::Enemy(const Enemy& orig) {

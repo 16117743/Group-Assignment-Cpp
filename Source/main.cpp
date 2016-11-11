@@ -10,65 +10,69 @@
 
 using namespace std;
 
-void randomAssignment();
-void createBoardOject(int val);
-
 template<typename T>
 class Board {
-        std::vector<T> data;
-        const size_t cols;
+    std::vector<T> data;
+    const size_t cols;
 public:
-        Board(size_t R, size_t C) : data(R*C), cols(C) {}
-        T operator()(size_t r, size_t c) const { return data[cols*r+c]; }
-        T& operator()(size_t r, size_t c) { return data[cols*r+c]; }
+    Board(size_t R, size_t C) : data(R*C), cols(C) {}
+    T operator()(size_t r, size_t c) const { return data[cols*r+c]; }
+    T& operator()(size_t r, size_t c) { return data[cols*r+c]; }
 };
+const size_t numRows = 8;
+const size_t numCols = 8;
+Board<BoardObject> Arr2D(numRows, numCols);
+
+int randomAssignment();
+void createBoardOject(int val,int row,int col,Board <BoardObject> &Arr2D);
+void printBoard();
 
 int main(int argc, char** argv) {
-   srand(time(0));// seed srand with time(0)
-        const size_t numRows = 8;
-        const size_t numCols = 8;
-        Board<BoardObject> Arr2D(numRows, numCols);
+    srand(time(0));// seed srand with time(0)
 
-        for (size_t i=0; i<numRows; ++i)
-        {
-            int ii = i;
-           for (size_t j=0; j<numCols; ++j){
-               randomAssignment();
-                Arr2D(i,j) = Enemy(i,j);
-           }
-        }
+    for (size_t i=0; i<numRows; ++i)
+    {
+       int ii = i;
+       for (size_t j=0; j<numCols; ++j)
+       {
+           int rand = randomAssignment();
+           createBoardOject(rand,i,j,Arr2D);
+       }
+    }
         
-        for (size_t i = 0; i < numRows; i++) {
-            for (size_t j = 0; j < numCols; j++) {
-                //std::cout << Arr2D(i,j).id << ", ";
-            }
-            std::cout << '\n';
-        }
+    printBoard();
 
     return 0;
 }
 
-void randomAssignment(){
+int randomAssignment(){
     int fMin = 0;
-    int fMax = 100;
-    
+    int fMax = 100;  
     int f = rand()%3;
-    //std::cout<< "generated: " << f << std::endl;
-    createBoardOject(f);
+    return f;
 }
 
-void createBoardOject(int val){
+void createBoardOject(int val, int row, int col, Board <BoardObject> &Arr2D){
     switch(val){
         case 0:
-            //std::cout << "0 here" << endl;// empty
+            Arr2D(row,col) = Enemy(row,col);
             break;
         case 1:
-           // std::cout << "1 here" << endl;// items
+            Arr2D(row,col) = Player(row,col);
             break;
         case 2:
-           // std::cout << "2 here" << endl;//enemy
+            Arr2D(row,col) = Enemy(row,col);
             break;
         case 3:
             break;
     }
+}
+
+void printBoard(){
+    for (size_t i = 0; i < numRows; i++) {
+            for (size_t j = 0; j < numCols; j++) {
+                std::cout << Arr2D(i,j).id << ", ";
+            }
+            std::cout << '\n';
+        }
 }

@@ -9,7 +9,7 @@ public:
     Enemy();
     Enemy(const Enemy& orig);
     Enemy(int row,int col);
-    virtual ~Enemy();
+    ~Enemy();
 
 private:
 

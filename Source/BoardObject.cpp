@@ -7,7 +7,7 @@ BoardObject::BoardObject() {
 }
 
 BoardObject::BoardObject(int xx, int yy, char type) {
-    std::cout<< "board object 2 arg constructor called" << std::endl;
+    //std::cout<< "board object 2 arg constructor called" << std::endl;
     x = xx;
     y = yy;
     id = type;

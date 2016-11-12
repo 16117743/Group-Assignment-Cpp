@@ -8,7 +8,7 @@ Player::Player() {
 }
 
 Player::Player(int row, int col) : Character (row,col, 'P'){ //calling base constructor
-    std::cout << "2 arg player constructor" << std::endl;
+    //std::cout << "2 arg player constructor" << std::endl;
 }
 
 Player::Player(const Player& orig) {

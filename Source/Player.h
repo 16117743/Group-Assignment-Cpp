@@ -6,10 +6,12 @@
 
 class Player : public Character {
 public:
+    //inventory...
+    int gold;
     Player();
     Player(int row, int col);//2 arg constructor
     Player(const Player& orig);
-    virtual ~Player();
+    ~Player();
 
 private:
 

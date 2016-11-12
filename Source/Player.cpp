@@ -4,7 +4,7 @@ Player::Player() {
     //std::cout<< "player constructor called" << std::endl;
     //std::string temp = "P";
    // std::cout<< "Enemy constructor called" << std::endl;
-//    id = temp;
+    id = 'P';
 }
 
 Player::Player(int row, int col) : Character (row,col, 'P'){ //calling base constructor

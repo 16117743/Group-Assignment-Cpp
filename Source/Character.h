@@ -12,7 +12,7 @@ class Character : public BoardObject
 private:
     
 public:
-    string type;
+    string race;
     int health;
     int atk;
     int atkChance;

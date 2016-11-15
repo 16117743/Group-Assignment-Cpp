@@ -50,14 +50,17 @@ int main(int argc, char** argv) {
     Inventory inventory;
     
     inventory.addItem(new Sword());
-    inventory.addItem(new Dagger());
-    inventory.addItem(new PlateArmour());
+    //inventory.addItem(new Dagger());
+    //inventory.addItem(new PlateArmour());
     inventory.addItem(new LeatherArmour());
+    inventory.addItem(new RingOfLife());
+    inventory.addItem(new RingOfStrength());
+    inventory.addItem(new SmallShield());
         
     inventory.printInventory();
     
-    inventory.removeItem(2);
-    inventory.printInventory();
+    //inventory.removeItem(2);
+    //inventory.printInventory();
     printBoard();//prints the board
 
     return 0;

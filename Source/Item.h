@@ -11,9 +11,11 @@ public:
     int health;
     int strength;
     std::string name;
+    std::string type;
     Item();
     Item(const Item& orig);
     virtual ~Item();
+    void operator = (const Item & );
     private:
 
 };
@@ -21,7 +23,7 @@ public:
 class Weapon : public Item {
     public:
     Weapon();
-    Weapon(const Weapon& orig);
+    Weapon(const Item& orig);
     virtual ~Weapon();
     private:
 };
@@ -29,7 +31,7 @@ class Weapon : public Item {
 class Sword : public Weapon {
     public:
     Sword();
-    Sword(const Sword& orig);
+    Sword(const Item& orig);
     virtual ~Sword();
     private:
 };
@@ -37,7 +39,7 @@ class Sword : public Weapon {
 class Dagger : public Weapon {
     public:
     Dagger();
-    Dagger(const Dagger& orig);
+    Dagger(const Item& orig);
     virtual ~Dagger();
     private:
 };
@@ -45,7 +47,7 @@ class Dagger : public Weapon {
 class Armour : public Item {
     public:
     Armour();
-    Armour(const Armour& orig);
+    Armour(const Item& orig);
     virtual ~Armour();
     private:
 };
@@ -53,7 +55,7 @@ class Armour : public Item {
 class PlateArmour : public Armour {
     public:
     PlateArmour();
-    PlateArmour(const PlateArmour& orig);
+    PlateArmour(const Item& orig);
     virtual ~PlateArmour();
     private:
 };
@@ -61,7 +63,7 @@ class PlateArmour : public Armour {
 class LeatherArmour : public Armour {
     public:
     LeatherArmour();
-    LeatherArmour(const LeatherArmour& orig);
+    LeatherArmour(const Item& orig);
     virtual ~LeatherArmour();
     private:
 };
@@ -69,7 +71,7 @@ class LeatherArmour : public Armour {
 class Shield : public Item {
     public:
     Shield();
-    Shield(const Shield& orig);
+    Shield(const Item& orig);
     virtual ~Shield();
     private:
 };
@@ -77,7 +79,7 @@ class Shield : public Item {
 class SmallShield : public Shield {
     public:
     SmallShield();
-    SmallShield(const SmallShield& orig);
+    SmallShield(const Item& orig);
     virtual ~SmallShield();
     private:
 };
@@ -85,7 +87,7 @@ class SmallShield : public Shield {
 class LargeShield : public Shield {
     public:
     LargeShield();
-    LargeShield(const LargeShield& orig);
+    LargeShield(const Item& orig);
     virtual ~LargeShield();
     private:
 };
@@ -94,7 +96,7 @@ class Ring : public Item {
     public:
         
     Ring();
-    Ring(const Ring& orig);
+    Ring(const Item& orig);
     virtual ~Ring();
     private:
 };
@@ -102,7 +104,7 @@ class Ring : public Item {
 class RingOfLife : public Ring {
     public:
     RingOfLife();
-    RingOfLife(const RingOfLife& orig);
+    RingOfLife(const Item& orig);
     virtual ~RingOfLife();
     private:
 };
@@ -110,7 +112,7 @@ class RingOfLife : public Ring {
 class RingOfStrength : public Ring {
     public:
     RingOfStrength();
-    RingOfStrength(const Ring& orig);
+    RingOfStrength(const Item& orig);
     virtual ~RingOfStrength();
     private:
 };

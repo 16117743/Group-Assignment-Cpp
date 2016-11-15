@@ -2,6 +2,13 @@
 
 Item::Item() {
     id = 'I';
+    weight = 0;
+    atk = 0;
+    def  = 0;
+    health  = 0;
+    strength  = 0;
+    name  = "";
+    type  = "";
 }
 
 Item::Item(const Item& orig) {
@@ -10,8 +17,29 @@ Item::Item(const Item& orig) {
 Item::~Item() {
 }
 
+//void Item::operator =(const Item item&) { 
+//        weight = item.weight;
+//        atk = item.atk;
+//        def = item.def;
+//        health = item.health;
+//        strength = item.strength;
+//        name = item.name;
+//        type = item.type;
+//    }
+
 /**weapon constructor */
 Weapon::Weapon() {
+    type = "Weapon";
+}
+
+Weapon::Weapon(const Item& item){
+        weight = item.weight;
+        atk = item.atk;
+        def = item.def;
+        health = item.health;
+        strength = item.strength;
+        name = item.name;
+        type = item.type;
 }
 
 /**weapon constructor */
@@ -39,10 +67,20 @@ Dagger::~Dagger(){
 }
 
 Armour::Armour(){
-
+    type = "Armour";
 }
 Armour::~Armour(){
     
+}
+
+Armour::Armour(const Item& item){
+    weight = item.weight;
+        atk = item.atk;
+        def = item.def;
+        health = item.health;
+        strength = item.strength;
+        name = item.name;
+        type = item.type;
 }
 
 PlateArmour::PlateArmour(){
@@ -65,10 +103,20 @@ LeatherArmour::~LeatherArmour(){
 }
    
 Shield::Shield(){
-    
+    type = "Shield";
 }
 Shield::~Shield(){
     
+}
+
+Shield::Shield(const Item& item){
+    weight = item.weight;
+        atk = item.atk;
+        def = item.def;
+        health = item.health;
+        strength = item.strength;
+        name = item.name;
+        type = item.type;
 }
 
 SmallShield::SmallShield(){
@@ -90,11 +138,21 @@ LargeShield::~LargeShield(){
 }
 
 Ring::Ring(){
-    
+    type = "Ring";
 }
 
 Ring::~Ring(){
     
+}
+
+Ring::Ring(const Item& item){
+    weight = item.weight;
+    atk = item.atk;
+    def = item.def;
+    health = item.health;
+    strength = item.strength;
+    name = item.name;
+    type = item.type;
 }
 
 RingOfLife::RingOfLife(){

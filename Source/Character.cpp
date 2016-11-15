@@ -19,7 +19,7 @@ Character::~Character() {
 
 /**Sword class */
 Human::Human() {
-    type = "Human";
+    race = "Human";
     atk = 30;
     atkChance = 66;
     def = 20;
@@ -33,7 +33,7 @@ Human::~Human(){
 }
 
 Elf::Elf() {
-    type = "Elf";
+    race = "Elf";
     atk = 40;
     atkChance = 100;
     def = 10;
@@ -48,7 +48,7 @@ Elf::~Elf(){
 
 /**Dwarf constructor */
 Dwarf::Dwarf() {
-    type = "Dwarf";
+    race = "Dwarf";
     atk = 30;
     atkChance = 66;
     def = 20;
@@ -64,7 +64,7 @@ Dwarf::~Dwarf(){
 
 /**Sword class */
 Hobbit::Hobbit() {
-    type = "Hobbit";
+    race = "Hobbit";
     atk = 25;
     atkChance = 33;
     def = 20;
@@ -79,7 +79,7 @@ Hobbit::~Hobbit(){
 
 /**Sword class */
 Orc::Orc() {
-    type = "Orc";
+    race = "Orc";
     atk = 25;//45 night
     atkChance = 25;//100 night
     def = 10;//25 night

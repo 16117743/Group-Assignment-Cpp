@@ -7,19 +7,23 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <cstddef>
 using std::vector;
 
 class Inventory {
 public:
    std::vector<Item*> wearables;
+   Item* weapon;
+   Item* armour;
+   Item* shield;
+   std::vector<Item*> rings;
    Inventory();
    Inventory(const Inventory& orig);
    ~Inventory(); 
-   bool addItem(Item * my_item);
+   bool addItem(Item * item);
    bool removeItem(int index);
    void printInventory();
    private: 
-   std::map<std::string, int> my_item_counts;
 };
 
 #endif /* INVENTORY_H */

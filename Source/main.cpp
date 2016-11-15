@@ -7,7 +7,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Empty.h"
+#include "Inventory.h"
 #include <ctime>
+#include "Item.h"
 
 using namespace std;
 
@@ -36,7 +38,7 @@ void createBoard();
 void createBoardOject(int val,int row,int col,Board <BoardObject> &Arr2D);
 void printBoard();
 void startup();
-void raceSelection();
+int raceSelection();
 void selectStartingPoint();
 
 int main(int argc, char** argv) {
@@ -44,8 +46,18 @@ int main(int argc, char** argv) {
 
     createBoard();//creates the board
     
-    startup();
+    //startup();
+    Inventory inventory;
+    
+    inventory.addItem(new Sword());
+    inventory.addItem(new Dagger());
+    inventory.addItem(new PlateArmour());
+    inventory.addItem(new LeatherArmour());
         
+    inventory.printInventory();
+    
+    inventory.removeItem(2);
+    inventory.printInventory();
     printBoard();//prints the board
 
     return 0;
@@ -71,7 +83,7 @@ void startup(){
     selectStartingPoint();
 }
 
-void raceSelection(){
+int raceSelection(){
     bool validSelection = false;
     int selection = -1;
     
@@ -107,6 +119,7 @@ void raceSelection(){
         }
     }
     while (validSelection == false);
+    return selection;
 }
 
 void selectStartingPoint(){

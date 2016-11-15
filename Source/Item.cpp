@@ -22,6 +22,7 @@ Weapon::~Weapon() {
 Sword::Sword() {
     weight = 10;
     atk = 10;
+    name = "Sword";
 }
 
 Sword::~Sword(){
@@ -31,6 +32,7 @@ Sword::~Sword(){
 Dagger::Dagger(){
     weight = 5;
     atk = 5;
+    name = "Dagger";
 }
 Dagger::~Dagger(){
     
@@ -47,6 +49,7 @@ PlateArmour::PlateArmour(){
     weight = 40;
     def = 10;
     atk = -5;
+    name = "Plate Armour";
 }
 PlateArmour::~PlateArmour(){
  
@@ -55,6 +58,7 @@ PlateArmour::~PlateArmour(){
 LeatherArmour::LeatherArmour(){
     weight = 20;
     def = 5;
+    name = "Leather Armour";
 }
 LeatherArmour::~LeatherArmour(){
     
@@ -70,6 +74,7 @@ Shield::~Shield(){
 SmallShield::SmallShield(){
     weight = 10;
     def = 5;
+    name = "Small Shield";
 }
 SmallShield::~SmallShield(){
     
@@ -78,6 +83,7 @@ SmallShield::~SmallShield(){
 LargeShield::LargeShield(){
     weight = 30;
     def = 10;
+    name = "Large Shield";
 }
 LargeShield::~LargeShield(){
     
@@ -94,6 +100,7 @@ Ring::~Ring(){
 RingOfLife::RingOfLife(){
     weight = 0;
     health = 10;
+    name = "Ring of Life";
 }
 
 RingOfLife::~RingOfLife(){
@@ -103,6 +110,7 @@ RingOfLife::~RingOfLife(){
 RingOfStrength::RingOfStrength(){
     strength = 50;
     health = -10;
+    name = "Ring of Strength";
 }
 
 RingOfStrength::~RingOfStrength(){

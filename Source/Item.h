@@ -1,6 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include "BoardObject.h"
+#include <string>
 
 class Item : public BoardObject {
 public:
@@ -9,6 +10,7 @@ public:
     int def;
     int health;
     int strength;
+    std::string name;
     Item();
     Item(const Item& orig);
     virtual ~Item();

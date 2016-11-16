@@ -88,6 +88,31 @@ void Character::displayStats(){
     std::cout << "\nStrength: " << strength << std::endl;
 }
 
+bool Character::attack(Character &c){
+    int atkRand = rand()%100;
+    
+    if(atkRand<atkChance)// attacker resolution
+    {
+        int defRand = rand()%100;
+        if(defRand<c.defChance)//defender resolution
+        {
+            std::cout<< "successful defence!\n";
+            //call defender trait member function
+        }
+        else{//defence failed
+            std::cout<< "successful attack!\n";
+            int atkAmount = atk - c.def; //difference between attackers value and defenders value
+            if(atkAmount <0) //prevent defender from inflicting damage when defence is higher than attack
+                atkAmount = 0;
+            c.health = c.health - atkAmount;
+            std::cout<< atkAmount << " damage dealt!\n";
+        }
+    return true;// attacker was successful    
+    }//endif attack success
+    std::cout<< "attack failed!\n";
+    return false;//attacker was unsuccessful
+}
+
 bool Character::move(std::string direction) {
     //std::cout<< "character destructor called" << std::endl;
 }

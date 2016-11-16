@@ -26,15 +26,13 @@ public:
     T& operator()(size_t r, size_t c) { return data[cols*r+c]; }
 };
 
-//number of rows on board
-const size_t numRows = 8;
-//number of cols on board
-const size_t numCols = 8;
-//board declared as global variable
-Board<BoardObject> Arr2D(numRows, numCols);
-Player p1;
+/*******Global variables******/
+const size_t numRows = 8;//number of rows on board
+const size_t numCols = 8;//number of cols on board
+Board<BoardObject> Arr2D(numRows, numCols);//board declared as global variable
+Player p1;//player
 
-//prototype functions
+/********prototype functions*****/
 int randomBoardObjectAssignment();
 void createBoard();
 void createBoardOject(int val,int row,int col,Board <BoardObject> &Arr2D);
@@ -44,20 +42,43 @@ int raceSelection();
 void selectStartingPoint();
 int randomItemTypeAssignment();
 void generateItem(int rand);
+void attackRound(Player &player, Enemy &enemy);
+bool isEnemyDefeated(Enemy &enemy);
+bool isGameOver(Player &player);
+void gameOver(Player &player);
+void update();//updates player stats and board
 
+/*****************************************************************************************/
 int main(int argc, char** argv) {
     srand(time(0));// seed srand with time(0)
     createBoard();//creates the board
 
     Enemy e1(1);
     Player p(2);
-    e1.displayStats();
+    
+    attackRound(p,e1);
     p.displayStats();
-    //Enemy e1(new Human);
-    //Player p(new Elf);
+    e1.displayStats();
+
+    attackRound(p,e1);
+    p.displayStats();
+    e1.displayStats();
     
-   // e1.displayStats();
+    attackRound(p,e1);
+    p.displayStats();
+    e1.displayStats();
     
+    attackRound(p,e1);
+    p.displayStats();
+    e1.displayStats();
+    
+    if(isGameOver(p)==true)
+        gameOver(p);
+    attackRound(p,e1);
+    attackRound(p,e1);
+    attackRound(p,e1);
+    if(isGameOver(p)==true)
+        gameOver(p);
     return 0;
 }
 
@@ -195,6 +216,7 @@ void generateItem(int rand){
 
 //creates a random object on the board
 void createBoardOject(int val, int row, int col, Board <BoardObject> &Arr2D){
+    int randomEnemy = rand()%5;
     switch(val){
         case 0:
             Arr2D(row,col) = Item();
@@ -203,7 +225,7 @@ void createBoardOject(int val, int row, int col, Board <BoardObject> &Arr2D){
             Arr2D(row,col) = Item();
             break;
         case 2:
-            Arr2D(row,col) = Empty();
+            Arr2D(row,col) = Enemy(randomEnemy);
             break;
         case 3:
             Arr2D(row,col) = Empty();
@@ -221,6 +243,37 @@ void printBoard(){
         }
 }
 
+void attackRound(Player &player, Enemy &enemy){
+    std::cout << "Player attacks:\noutcome = ";
+    if(player.attack(enemy)==true)//if the attack was successful
+    {
+        if(isEnemyDefeated(enemy)==false){//enemy attacks back if not defeated
+            std::cout << "Enemy attacks:\noutcome = ";
+            enemy.attack(player);
+        }
+    }
+}
+
+bool isGameOver(Player &player){
+    if(player.health <=0)
+        return true;
+    else 
+        return false;
+}
+
+
+void gameOver(Player &player){
+    std::cout << "You have been defeated, thank you for playing\n"<<std::endl;
+    std::cout << "You collected"<< player.gold << std::endl;
+}
+
+bool isEnemyDefeated(Enemy &enemy){
+    if(enemy.health<0){
+        enemy.id = ' '; //removes enemy from the board by changing BoardObject.id
+        return true;//enemy is defeated
+    }
+    return false;//enemy is not defeated
+}
 /*
      p1 = Player();
     startup();

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Item.h"
-
+#include <ctime>
 using namespace std;
 
 class Character : public BoardObject
@@ -27,7 +27,7 @@ public:
     ~Character();
     bool move(string direction);
     void drop();
-    void attack();
+    bool attack(Character &c);
     void displayStats();
     //void printInventory();
 };

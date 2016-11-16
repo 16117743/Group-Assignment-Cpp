@@ -1,10 +1,8 @@
 #include "Player.h"
 
 Player::Player() {
-    //std::cout<< "player constructor called" << std::endl;
-    //std::string temp = "P";
-   // std::cout<< "Enemy constructor called" << std::endl;
     id = 'P';
+    gold = 0;
 }
 
 Player::Player(Character c) {

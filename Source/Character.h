@@ -22,15 +22,17 @@ public:
     int strength;
 
     Character();
-    Character(int row, int col,char type);
+    Character(int race);
     Character(const Character& orig);
     ~Character();
-    void move(string direction);
-    Item pickup();
+    bool move(string direction);
     void drop();
     void attack();
-    void printInventory();
+    void displayStats();
+    //void printInventory();
 };
+
+/*Races*/
 
 class Human : public Character {
     public:

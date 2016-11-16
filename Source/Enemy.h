@@ -7,6 +7,7 @@
 class Enemy : public Character{
 public:
     Enemy();
+    Enemy(Character c);
     Enemy(const Enemy& orig);
     Enemy(int row,int col);
     ~Enemy();

@@ -5,8 +5,69 @@ Character::Character() {
    // id = "C";
 }
 
-Character::Character(int row, int col, char type) : BoardObject(row,col,type){
-    //std::cout << "2 arg character constructor" << std::endl;
+Character::Character(int racesw){
+    switch(racesw){
+        case 0:
+        {
+            Human h1;
+            race = h1.race;
+            atk = h1.atk;
+            atkChance = h1.atkChance;
+            def = h1.def;
+            defChance = h1.defChance;
+            health = h1.health;
+            strength = h1.strength;
+        break;
+        }
+        case 1:
+        {
+            Elf el1;
+            race = el1.race;
+            atk = el1.atk;
+            atkChance = el1.atkChance;
+            def = el1.def;
+            defChance = el1.defChance;
+            health = el1.health;
+            strength = el1.strength;
+        break;
+        }
+        case 2:
+        {
+            Dwarf d1;
+            race = d1.race;
+            atk = d1.atk;
+            atkChance = d1.atkChance;
+            def = d1.def;
+            defChance = d1.defChance;
+            health = d1.health;
+            strength = d1.strength;
+        break;
+        }
+        case 3:
+        {
+            Hobbit ho1;
+            race = ho1.race;
+            atk = ho1.atk;
+            atkChance = ho1.atkChance;
+            def = ho1.def;
+            defChance = ho1.defChance;
+            health = ho1.health;
+            strength = ho1.strength;
+        break;
+        }
+        case 4:
+        {
+            Orc o1;
+            race = o1.race;
+            atk = o1.atk;
+            atkChance = o1.atkChance;
+            def = o1.def;
+            defChance = o1.defChance;
+            health = o1.health;
+            strength = o1.strength;
+        break;
+        }
+    }
 }
 
 Character::Character(const Character& orig){
@@ -17,7 +78,21 @@ Character::~Character() {
     //std::cout<< "character destructor called" << std::endl;
 }
 
-/**Sword class */
+void Character::displayStats(){
+    std::cout << "Race: " << race;
+    std::cout << "\nAttack: " << atk;
+    std::cout << "\nAttack chance: " << atkChance;
+    std::cout << "\nDefence: " << def;
+    std::cout << "\nDefence chance: " << atk;
+    std::cout << "\nHealth: " << health;
+    std::cout << "\nStrength: " << strength << std::endl;
+}
+
+bool Character::move(std::string direction) {
+    //std::cout<< "character destructor called" << std::endl;
+}
+
+/**Races */
 Human::Human() {
     race = "Human";
     atk = 30;

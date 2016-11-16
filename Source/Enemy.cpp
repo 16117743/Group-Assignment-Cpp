@@ -6,8 +6,14 @@ Enemy::Enemy() {
     //id.assign("E");
 }
 
-Enemy::Enemy(int row, int col) : Character (row,col, 'E'){
-    //std::cout << "2 arg enemy constructor" << std::endl;
+Enemy::Enemy(Character c) {
+    race = c.race;
+    atk = c.atk;
+    atkChance = c.atkChance;
+    def = c.def;
+    defChance = c.defChance;
+    health = c.health;
+    strength = c.strength;
 }
 
 Enemy::Enemy(const Enemy& orig) {

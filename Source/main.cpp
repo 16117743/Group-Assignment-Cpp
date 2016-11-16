@@ -10,12 +10,14 @@
 #include "Inventory.h"
 #include <ctime>
 #include "Item.h"
+#include <memory>
 
 using namespace std;
 
 /* Board class */
 template<typename T>
 class Board {
+    //std::vector<std::unique_ptr<T> > data;
     std::vector<T> data;
     const size_t cols;
 public:
@@ -30,39 +32,32 @@ const size_t numRows = 8;
 const size_t numCols = 8;
 //board declared as global variable
 Board<BoardObject> Arr2D(numRows, numCols);
+Player p1;
 
 //prototype functions
 int randomBoardObjectAssignment();
-int randomItemTypeAssignment();
 void createBoard();
 void createBoardOject(int val,int row,int col,Board <BoardObject> &Arr2D);
 void printBoard();
 void startup();
 int raceSelection();
 void selectStartingPoint();
+int randomItemTypeAssignment();
+void generateItem(int rand);
 
 int main(int argc, char** argv) {
     srand(time(0));// seed srand with time(0)
-
     createBoard();//creates the board
-    
-    //startup();
-    Inventory inventory;
-    
-    inventory.addItem(new Sword());
-    //inventory.addItem(new Dagger());
-    //inventory.addItem(new PlateArmour());
-    inventory.addItem(new LeatherArmour());
-    inventory.addItem(new RingOfLife());
-    inventory.addItem(new RingOfStrength());
-    inventory.addItem(new SmallShield());
-        
-    inventory.printInventory();
-    
-    //inventory.removeItem(2);
-    //inventory.printInventory();
-    printBoard();//prints the board
 
+    Enemy e1(1);
+    Player p(2);
+    e1.displayStats();
+    p.displayStats();
+    //Enemy e1(new Human);
+    //Player p(new Elf);
+    
+   // e1.displayStats();
+    
     return 0;
 }
 
@@ -148,7 +143,7 @@ void selectStartingPoint(){
         }
         else{
             std::cout << "You have selected a valid starting point, the game will now begin" << std::endl;
-            Arr2D(row,col) = Player();
+            Arr2D(row,col) = p1;
             validSelection = true;
         }
     }
@@ -167,13 +162,42 @@ int randomItemTypeAssignment(){
     return f;
 }
 
+void generateItem(int rand){
+    switch(rand)
+    {
+        case 0: // sword
+            p1.pickup(new Sword);
+        break;
+        case 1: // dagger
+            p1.pickup(new Dagger);
+        break;
+        case 2: // leather
+            p1.pickup(new PlateArmour);
+        break;
+        case 3: // plate
+            p1.pickup(new LeatherArmour);
+        break;
+        case 4: // large shield
+            p1.pickup(new LargeShield);
+        break;
+        case 5: // small shield
+            p1.pickup(new SmallShield);
+        break;
+        case 6: // ring of str
+            p1.pickup(new RingOfStrength);
+        break;
+        case 7: // ring of life
+            p1.pickup(new RingOfLife);
+        break;          
+    }
+}
 
 
 //creates a random object on the board
 void createBoardOject(int val, int row, int col, Board <BoardObject> &Arr2D){
     switch(val){
         case 0:
-            Arr2D(row,col) = Enemy(row,col);
+            Arr2D(row,col) = Item();
             break;
         case 1:
             Arr2D(row,col) = Item();
@@ -196,3 +220,40 @@ void printBoard(){
             std::cout << '\n';
         }
 }
+
+/*
+     p1 = Player();
+    startup();
+     
+    printBoard();//prints the board
+    int row1;
+    int col1;
+    
+    while(1){
+    std::cout << "row" << std::endl;
+    std::cin >> row1;
+    std::cout << "col" << std::endl;
+    std::cin >> col1;
+
+    if(Arr2D(row1,col1).id == 'I'){
+        int rand = randomItemTypeAssignment();
+        generateItem(rand);
+    }
+    else{}
+    
+    
+    p1.inventory.printInventory();
+    }*/
+
+
+/* dynamically allocate objects
+ 
+ std::vector<std::unique_ptr<BoardObject> > my_vector;
+    int object_count = 64;
+    my_vector.reserve(object_count);
+    for(int index = 0; index < object_count; index++)
+    {
+      my_vector.push_back(std::unique_ptr<BoardObject>(new Sword()));
+    }
+ 
+ */

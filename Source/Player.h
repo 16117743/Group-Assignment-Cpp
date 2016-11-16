@@ -1,17 +1,19 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Character.h"
+#include "Inventory.h"
 #include <iostream>
 #include <string>
 
 class Player : public Character {
 public:
-    //inventory...
+    Inventory inventory;
     int gold;
     Player();
-    Player(int row, int col);//2 arg constructor
+    Player(Character c);
     Player(const Player& orig);
     ~Player();
+    void pickup(Item *item);
 
 private:
 

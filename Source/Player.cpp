@@ -7,8 +7,14 @@ Player::Player() {
     id = 'P';
 }
 
-Player::Player(int row, int col) : Character (row,col, 'P'){ //calling base constructor
-    //std::cout << "2 arg player constructor" << std::endl;
+Player::Player(Character c) {
+    race = c.race;
+    atk = c.atk;
+    atkChance = c.atkChance;
+    def = c.def;
+    defChance = c.defChance;
+    health = c.health;
+    strength = c.strength;
 }
 
 Player::Player(const Player& orig) {
@@ -16,5 +22,10 @@ Player::Player(const Player& orig) {
 
 Player::~Player() {
     //std::cout<< "player destructor called" << std::endl;
+}
+
+void Player::pickup(Item *item) {
+    inventory.addItem(item);
+    //std::cout<< "character destructor called" << std::endl;
 }
 

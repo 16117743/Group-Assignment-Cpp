@@ -47,17 +47,19 @@ bool isEnemyDefeated(Enemy &enemy);
 bool isGameOver(Player &player);
 void gameOver(Player &player);
 void update(Character &c);//updates player stats and board
+void handleUserInput();
 
 /*****************************************************************************************/
 int main(int argc, char** argv) {
     srand(time(0));// seed srand with time(0)
     createBoard();//creates the board
 
-    Enemy e1(1);
+    handleUserInput();
+    /*Enemy e1(1);
     e1.displayStats();
     generateItemForEnemy(e1);
     e1.displayStats();
-    Player p(2);
+    Player p(2);*/
 
     //generateItem(e1);
     return 0;
@@ -207,6 +209,56 @@ void generateItemForEnemy(Character &c){
 
 void update(Character &c){
 //    c.updateStats();
+}
+
+void handleUserInput(){
+    bool valid = true;
+    char input;
+    std::cout<<"please enter command"<< std::endl;
+    do
+    {
+        std::cin >> input;
+        switch(input)
+        {
+            case 'n'://north
+                std::cout<<"moving north"<< std::endl;
+                valid = true;
+                break;
+            case 's'://south
+                std::cout<<"moving south"<< std::endl;
+                valid = true;
+                break;
+            case 'e'://east
+                std::cout<<"moving east"<< std::endl;
+                valid = true;
+                break;
+            case 'w'://west
+                std::cout<<"moving west"<< std::endl;
+                valid = true;
+                break;
+            case 'd'://look
+                std::cout<<"drop"<< std::endl;
+                valid = true;
+                break;
+            case 'a'://look
+                std::cout<<"attack"<< std::endl;
+                valid = true;
+                break;
+            case 'l'://look
+                std::cout<<"look"<< std::endl;
+                valid = true;
+                break;
+            case 'i'://inventory
+                std::cout<<"inventory"<< std::endl;
+                valid = true;
+                break;
+            default:
+                std::cout<<"not a valid command"<< std::endl;
+                valid = false;
+                break;
+        }
+    }
+    while(valid == false);
 }
 
 

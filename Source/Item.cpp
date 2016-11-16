@@ -17,16 +17,6 @@ Item::Item(const Item& orig) {
 Item::~Item() {
 }
 
-//void Item::operator =(const Item item&) { 
-//        weight = item.weight;
-//        atk = item.atk;
-//        def = item.def;
-//        health = item.health;
-//        strength = item.strength;
-//        name = item.name;
-//        type = item.type;
-//    }
-
 /**weapon constructor */
 Weapon::Weapon() {
     type = "Weapon";
@@ -75,12 +65,12 @@ Armour::~Armour(){
 
 Armour::Armour(const Item& item){
     weight = item.weight;
-        atk = item.atk;
-        def = item.def;
-        health = item.health;
-        strength = item.strength;
-        name = item.name;
-        type = item.type;
+    atk = item.atk;
+    def = item.def;
+    health = item.health;
+    strength = item.strength;
+    name = item.name;
+    type = item.type;
 }
 
 PlateArmour::PlateArmour(){

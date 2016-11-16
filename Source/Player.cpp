@@ -22,8 +22,5 @@ Player::~Player() {
     //std::cout<< "player destructor called" << std::endl;
 }
 
-void Player::pickup(Item *item) {
-    inventory.addItem(item);
-    //std::cout<< "character destructor called" << std::endl;
-}
+
 

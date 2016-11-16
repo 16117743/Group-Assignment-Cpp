@@ -7,13 +7,11 @@
 
 class Player : public Character {
 public:
-    Inventory inventory;
     int gold;
     Player();
     Player(Character c);
     Player(const Player& orig);
     ~Player();
-    void pickup(Item *item);
 
 private:
 

@@ -41,12 +41,12 @@ void startup();
 int raceSelection();
 void selectStartingPoint();
 int randomItemTypeAssignment();
-void generateItem(int rand);
+void generateItemForEnemy(Character &c);
 void attackRound(Player &player, Enemy &enemy);
 bool isEnemyDefeated(Enemy &enemy);
 bool isGameOver(Player &player);
 void gameOver(Player &player);
-void update();//updates player stats and board
+void update(Character &c);//updates player stats and board
 
 /*****************************************************************************************/
 int main(int argc, char** argv) {
@@ -54,31 +54,12 @@ int main(int argc, char** argv) {
     createBoard();//creates the board
 
     Enemy e1(1);
+    e1.displayStats();
+    generateItemForEnemy(e1);
+    e1.displayStats();
     Player p(2);
-    
-    attackRound(p,e1);
-    p.displayStats();
-    e1.displayStats();
 
-    attackRound(p,e1);
-    p.displayStats();
-    e1.displayStats();
-    
-    attackRound(p,e1);
-    p.displayStats();
-    e1.displayStats();
-    
-    attackRound(p,e1);
-    p.displayStats();
-    e1.displayStats();
-    
-    if(isGameOver(p)==true)
-        gameOver(p);
-    attackRound(p,e1);
-    attackRound(p,e1);
-    attackRound(p,e1);
-    if(isGameOver(p)==true)
-        gameOver(p);
+    //generateItem(e1);
     return 0;
 }
 
@@ -177,40 +158,55 @@ int randomBoardObjectAssignment(){
     return f;
 }
 
-//generates a random number for creating a type of item
-int randomItemTypeAssignment(){
-    int f = rand()%9;
-    return f;
+void generateItemForEnemy(Character &c){
+    int random = rand()%8;
+    switch(random)
+    {
+        case 0:
+        {// sword
+            c.pickup(new Sword);
+        break;
+        }
+        case 1: // dagger
+        {
+            c.pickup(new Dagger);
+        break;
+        }
+        case 2: // leather
+        {
+            c.pickup(new PlateArmour);
+        break;
+        }
+        case 3: // plate
+        {
+            c.pickup(new LeatherArmour);
+        break;
+        }
+        case 4: // large shield
+        {
+            c.pickup(new LargeShield);
+        break;
+        }
+        case 5: // small shield
+        {
+            c.pickup(new SmallShield);
+        break;
+        }
+        case 6: // ring of str
+        {
+            c.pickup(new RingOfStrength);
+        break;
+        }
+        case 7: // ring of life
+        {
+            c.pickup(new RingOfLife);
+        break;          
+        }
+    }
 }
 
-void generateItem(int rand){
-    switch(rand)
-    {
-        case 0: // sword
-            p1.pickup(new Sword);
-        break;
-        case 1: // dagger
-            p1.pickup(new Dagger);
-        break;
-        case 2: // leather
-            p1.pickup(new PlateArmour);
-        break;
-        case 3: // plate
-            p1.pickup(new LeatherArmour);
-        break;
-        case 4: // large shield
-            p1.pickup(new LargeShield);
-        break;
-        case 5: // small shield
-            p1.pickup(new SmallShield);
-        break;
-        case 6: // ring of str
-            p1.pickup(new RingOfStrength);
-        break;
-        case 7: // ring of life
-            p1.pickup(new RingOfLife);
-        break;          
-    }
+void update(Character &c){
+//    c.updateStats();
 }
 
 

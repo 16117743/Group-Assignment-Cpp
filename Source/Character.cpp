@@ -117,6 +117,24 @@ bool Character::move(std::string direction) {
     //std::cout<< "character destructor called" << std::endl;
 }
 
+bool Character::pickup(Item *item) {
+    if(strength >= item->weight){
+        inventory.addItem(item);
+        updateStats(item);
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Character::updateStats(Item *item){
+    atk = atk+ item->atk;
+    def = def + item->def;
+    health = health + item->health;
+    strength = strength - item->weight;//update strength using weight of item
+}
+
 /**Races */
 Human::Human() {
     race = "Human";

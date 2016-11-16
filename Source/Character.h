@@ -5,6 +5,7 @@
 #include <string>
 #include "Item.h"
 #include <ctime>
+#include "Inventory.h"
 using namespace std;
 
 class Character : public BoardObject
@@ -20,7 +21,8 @@ public:
     int defChance;
     int weight;
     int strength;
-
+    Inventory inventory;
+    
     Character();
     Character(int race);
     Character(const Character& orig);
@@ -29,6 +31,8 @@ public:
     void drop();
     bool attack(Character &c);
     void displayStats();
+    bool pickup(Item *item);
+    void updateStats(Item *item);
     //void printInventory();
 };
 

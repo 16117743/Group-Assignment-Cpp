@@ -17,6 +17,7 @@ Character::Character(int racesw){
             defChance = h1.defChance;
             health = h1.health;
             strength = h1.strength;
+            //cPtr = this;
         break;
         }
         case 1:
@@ -29,6 +30,7 @@ Character::Character(int racesw){
             defChance = el1.defChance;
             health = el1.health;
             strength = el1.strength;
+            //cPtr = this;
         break;
         }
         case 2:
@@ -41,6 +43,7 @@ Character::Character(int racesw){
             defChance = d1.defChance;
             health = d1.health;
             strength = d1.strength;
+            //cPtr = this;
         break;
         }
         case 3:
@@ -53,6 +56,7 @@ Character::Character(int racesw){
             defChance = ho1.defChance;
             health = ho1.health;
             strength = ho1.strength;
+            //cPtr = this;
         break;
         }
         case 4:
@@ -65,6 +69,7 @@ Character::Character(int racesw){
             defChance = o1.defChance;
             health = o1.health;
             strength = o1.strength;
+            //cPtr = this;
         break;
         }
     }
@@ -86,6 +91,44 @@ void Character::displayStats(){
     std::cout << "\nDefence chance: " << atk;
     std::cout << "\nHealth: " << health;
     std::cout << "\nStrength: " << strength << std::endl;
+}
+
+void Character::displayE(){
+    std::cout << "Race: " << race;
+    std::cout << "\nAttack: " << atk;
+    std::cout << "\nAttack chance: " << atkChance;
+    std::cout << "\nDefence: " << def;
+    std::cout << "\nDefence chance: " << atk;
+    std::cout << "\nHealth: " << health;
+    std::cout << "\nStrength: " << strength << std::endl;
+}
+
+
+void Character::displayI(){
+    std::cout << "Race: " << race;
+    std::cout << "\nAttack: " << atk;
+    std::cout << "\nAttack chance: " << atkChance;
+    std::cout << "\nDefence: " << def;
+    std::cout << "\nDefence chance: " << atk;
+    std::cout << "\nHealth: " << health;
+    std::cout << "\nStrength: " << strength << std::endl;
+}
+
+void Character::displayStats2(){
+    std::cout << "Race: " << race;
+    std::cout << "\nAttack: " << atk;
+    std::cout << "\nAttack chance: " << atkChance;
+    std::cout << "\nDefence: " << def;
+    std::cout << "\nDefence chance: " << atk;
+    std::cout << "\nHealth: " << health;
+    std::cout << "\nStrength: " << strength << std::endl;
+//    std::cout << "Race: " << this->race;
+//    std::cout << "\nAttack: " << this->atk;
+//    std::cout << "\nAttack chance: " << this->atkChance;
+//    std::cout << "\nDefence: " << this->def;
+//    std::cout << "\nDefence chance: " << this->atk;
+//    std::cout << "\nHealth: " << this->health;
+//    std::cout << "\nStrength: " << this->strength << std::endl;
 }
 
 bool Character::attack(Character &c){

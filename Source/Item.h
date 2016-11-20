@@ -15,7 +15,8 @@ public:
     Item();
     Item(const Item& orig);
     virtual ~Item();
-    void operator = (const Item & );
+    void displayI();
+    void displayE();
     private:
 
 };

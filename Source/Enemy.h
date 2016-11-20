@@ -3,7 +3,7 @@
 #include "Character.h"
 #include <iostream>
 #include <string>
-
+#include <ctime>
 class Enemy : public Character{
 public:
     Enemy();
@@ -11,7 +11,7 @@ public:
     Enemy(const Enemy& orig);
     Enemy(int row,int col);
     ~Enemy();
-
+    void generateItemForEnemy();
 private:
 
 };

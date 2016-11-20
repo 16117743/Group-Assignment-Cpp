@@ -6,6 +6,8 @@ Player::Player() {
 }
 
 Player::Player(Character c) {
+    id = 'P';
+    gold = 0;
     race = c.race;
     atk = c.atk;
     atkChance = c.atkChance;

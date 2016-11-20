@@ -31,8 +31,11 @@ public:
     void drop();
     bool attack(Character &c);
     void displayStats();
+    void displayStats2();
     bool pickup(Item *item);
     void updateStats(Item *item);
+    void displayI();
+    void displayE();
     //void printInventory();
 };
 

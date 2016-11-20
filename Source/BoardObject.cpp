@@ -1,4 +1,5 @@
 #include "BoardObject.h"
+#include "Character.h"
 #include <string>
 BoardObject::BoardObject() {
     //std::cout<< "board object constructor called" << std::endl;
@@ -8,8 +9,8 @@ BoardObject::BoardObject() {
 
 BoardObject::BoardObject(int xx, int yy, char type) {
     //std::cout<< "board object 2 arg constructor called" << std::endl;
-    x = xx;
-    y = yy;
+    r = xx;
+    c = yy;
     id = type;
 }
 
@@ -21,7 +22,11 @@ BoardObject::BoardObject(int xx, int yy, char type) {
 BoardObject::BoardObject(const BoardObject& orig){
 }
 
-BoardObject::~BoardObject() {
+//BoardObject::~BoardObject() {
    // std::cout<< "board object destructor called" << std::endl;
-}
+//}
+
+//void BoardObject::printEnemy(){
+//    cPtr->displayStats();
+//}
 

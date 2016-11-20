@@ -4,7 +4,7 @@
 BoardObject::BoardObject() {
     //std::cout<< "board object constructor called" << std::endl;
     //x = 2;
-    id = '0';
+    id = ' ';
 }
 
 BoardObject::BoardObject(int xx, int yy, char type) {

@@ -28,7 +28,7 @@ public:
    Inventory();
    Inventory(const Inventory& orig);
    ~Inventory(); 
-   bool addItem(Item * item);
+   bool addItem(Item * iPtr);
    bool removeItem(int index);
    void printInventory();
    private: 

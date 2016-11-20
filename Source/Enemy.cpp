@@ -36,7 +36,8 @@ Enemy::Enemy(Character c) {
     atkChance = c.atkChance;
     def = c.def;
     defChance = c.defChance;
-    health = c.health;
+    health = 15;
+    //health = c.health;
     strength = c.strength;
 }
 

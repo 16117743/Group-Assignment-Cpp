@@ -84,7 +84,7 @@ Character::~Character() {
 }
 
 void Character::displayStats(){
-    std::cout << "Race: " << race;
+    std::cout << "\n****Player Stats****\nRace: " << race;
     std::cout << "\nAttack: " << atk;
     std::cout << "\nAttack chance: " << atkChance;
     std::cout << "\nDefence: " << def;
@@ -115,39 +115,26 @@ void Character::displayI(){
 }
 
 void Character::displayStats2(){
-    std::cout << "Race: " << race;
-    std::cout << "\nAttack: " << atk;
-    std::cout << "\nAttack chance: " << atkChance;
-    std::cout << "\nDefence: " << def;
-    std::cout << "\nDefence chance: " << atk;
-    std::cout << "\nHealth: " << health;
-    std::cout << "\nStrength: " << strength << std::endl;
-//    std::cout << "Race: " << this->race;
-//    std::cout << "\nAttack: " << this->atk;
-//    std::cout << "\nAttack chance: " << this->atkChance;
-//    std::cout << "\nDefence: " << this->def;
-//    std::cout << "\nDefence chance: " << this->atk;
-//    std::cout << "\nHealth: " << this->health;
-//    std::cout << "\nStrength: " << this->strength << std::endl;
+    inventory.printInventory();
 }
 
-bool Character::attack(Character &c){
+bool Character::attack(Character *c){
     int atkRand = rand()%100;
     
     if(atkRand<atkChance)// attacker resolution
     {
         int defRand = rand()%100;
-        if(defRand<c.defChance)//defender resolution
+        if(defRand<c->defChance)//defender resolution
         {
             std::cout<< "successful defence!\n";
             //call defender trait member function
         }
         else{//defence failed
             std::cout<< "successful attack!\n";
-            int atkAmount = atk - c.def; //difference between attackers value and defenders value
+            int atkAmount = atk - c->def; //difference between attackers value and defenders value
             if(atkAmount <0) //prevent defender from inflicting damage when defence is higher than attack
                 atkAmount = 0;
-            c.health = c.health - atkAmount;
+            c->health = c->health - atkAmount;
             std::cout<< atkAmount << " damage dealt!\n";
         }
     return true;// attacker was successful    

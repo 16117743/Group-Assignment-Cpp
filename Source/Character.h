@@ -29,7 +29,7 @@ public:
     ~Character();
     bool move(string direction);
     void drop();
-    bool attack(Character &c);
+    bool attack(Character *c);
     void displayStats();
     void displayStats2();
     bool pickup(Item *item);

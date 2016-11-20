@@ -2,19 +2,32 @@
 
 Item::Item() {
     id = 'I';
-    weight = 0;
-    atk = 0;
-    def  = 0;
-    health  = 0;
-    strength  = 0;
-    name  = "";
-    type  = "";
+}
+
+Item::Item(Item *iPtr) {
+    id = iPtr->id;
+    weight = iPtr->weight;
+    atk =  iPtr->atk;
+    def  =  iPtr->def;
+    health  =  iPtr->health;
+    strength  =  iPtr->strength;
+    name  =  iPtr->name;
+    type  =  iPtr->type;
 }
 
 Item::Item(const Item& orig) {
 }
 
 Item::~Item() {
+}
+
+void Item::displayI(){
+    std::cout << "Item: " << name << std::endl;
+    std::cout << "Weight: " << weight <<std::endl;
+    std::cout << "Attack mod: " << atk <<std::endl;
+    std::cout << "Defence mod: " << def <<std::endl;
+    std::cout << "Health mod: " << health <<std::endl;
+    std::cout << "Strength mod: " << strength <<std::endl;
 }
 
 /**weapon constructor */

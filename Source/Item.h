@@ -2,6 +2,8 @@
 #define ITEM_H
 #include "BoardObject.h"
 #include <string>
+#include <iostream>
+#include <ctime>
 
 class Item : public BoardObject {
 public:
@@ -14,6 +16,7 @@ public:
     std::string type;
     Item();
     Item(const Item& orig);
+    Item(Item *iPtr);
     virtual ~Item();
     void displayI();
     void displayE();

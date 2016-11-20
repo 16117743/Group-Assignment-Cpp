@@ -29,53 +29,33 @@ public:
     Board(size_t R, size_t C) : data(R*C), cols(C) {}
     T operator()(size_t r, size_t c) const { return data[cols*r+c]; }
     T& operator()(size_t r, size_t c) { return data[cols*r+c]; }
-    void move1(size_t r, size_t c,size_t r1, size_t c1) { 
-        data[cols*r+c].id = '0';
-        std::cout << "***move****\nprev:\n[" << r << "][" << c << "]" <<  data[cols*r+c].id << "\n";
+    void move1(size_t r, size_t c,size_t r1, size_t c1)
+    { 
+        std::cout << "move current row" << r << std::endl;
+        std::cout << "move current col" << c<< std::endl;
+        std::cout << "move current player row" << pPtr->r << std::endl;
+        std::cout << "move current player col" << pPtr->c<< std::endl;
+        data[cols*r+c].id = ' ';
         r+= r1;
         c += c1;
         data[cols*r+c].id = 'P';//x , y
-        std::cout << "\ncurrent:\n[" << (r) << "][" << (c) << "]" <<  data[cols*(r)+(c)].id << "\n";
-        std::cout<< "boards p row " << r << std::endl;
-        std::cout<< "boards p col " << c << std::endl;
-        std::cout<< "boards p id " << data[cols*r+c].id << std::endl;
         pPtr->r = r;
         pPtr->c = c;
         
     }
     char north(size_t r, size_t c){
-//        std::cout<< "current row = " << r << std::endl;
-//        std::cout<< "current col = " << c << std::endl;
-        //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r-1)+(c+(0))].id;//x , y
     }
     char south(size_t r, size_t c){
-//        std::cout<< "current row = " << r << std::endl;
-//        std::cout<< "current col = " << c << std::endl;
-        //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r+(1))+(c+0)].id;//x , y
     }
     char west(size_t r, size_t c){
-//        std::cout<< "current row = " << r << std::endl;
-//        std::cout<< "current col = " << c << std::endl;
-        //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r+0)+(c-1)].id;//x , y
     }
     
     char east(size_t r, size_t c){
-//        std::cout<< "current row = " << r << std::endl;
-//        std::cout<< "current col = " << c << std::endl;
-        //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r+0)+(c+1)].id;//x , y
     }
-    
-//    void updateBoard(size_t r, size_t c){
-//        data[cols*(r+0)+(c+1)].id
-//    }
-    
-    
-        //data[cols*r+1+c+1] = std::move(data[cols*r+c]);}
-    //data[cols*r+c].id='-1'
 };
 
 /*******Global variables******/
@@ -85,10 +65,6 @@ const size_t numCols = 8;//number of cols on board
 Board<BoardObject> board(numRows, numCols);//board declared as global variable
 Board<Item> boardItems(numRows, numCols);//board declared as global variable
 Board<Enemy> boardCharacters(numRows, numCols);//board declared as global variable
-//Board<BoardObject> Arr2D(numRows, numCols);//board declared as global variable
-
-
-//vector<BoardObject*> board;
 
 /********prototype functions*****/
 int randomBoardObjectAssignment();
@@ -105,9 +81,10 @@ bool isEnemyDefeated(Enemy &enemy);
 bool isGameOver(Player &player);
 void gameOver(Player &player);
 void update(Character &c);//updates player stats and board
-void handleUserInput();
+void handleUserInput(Player *pPtr);
 void checkSquare();
 void look(Player *p);
+void confirmMovement(int r, int c, Player *pPtr);
 
 /*****************************************************************************************/
 int main(int argc, char** argv) {
@@ -115,10 +92,11 @@ int main(int argc, char** argv) {
     createBoard();//creates the board
     printBoard();
     startup();
+    pPtr = &p1;
     
     printBoard();
     while(1){
-       handleUserInput(); 
+       handleUserInput(pPtr); 
        printBoard();
     }
     return 0;
@@ -139,15 +117,11 @@ void createBoard(){
 
 //creates a random object on the board
 void createBoardOject(int val, int row, int col, Board <BoardObject> Arr2D){
-    if(row%numRows == 0 || row%numRows== numRows-1)
-    {
+    if(row%numRows == 0 || row%numRows== numRows-1){
         board(row,col)= Wall();
-        std::cout << "!!!!!!row [" << row << "] col[" << col << "] =" << board(row,col).id << std::endl;
     }
-    else if(col%numCols == 0 || col%numCols== numCols-1)
-    {
+    else if(col%numCols == 0 || col%numCols== numCols-1){
         board(row,col)= Wall(); 
-        std::cout << "!!!!!!!!row [" << row << "] col[" << col << "] =" << board(row,col).id << std::endl;
     }
     else
     {
@@ -205,7 +179,8 @@ void startup(){
     selectStartingPoint();
 }
 
-int raceSelection(){
+int raceSelection()
+{
     bool validSelection = false;
     int selection = -1;
     
@@ -228,11 +203,11 @@ int raceSelection(){
                     //pPtr = p1;
                     break;
                 case 2: 
-                    std::cout << "Dwarf\n";
+                    std::cout << "Elf\n";
                      p1 = Player(1);
                     break;
                 case 3:
-                    std::cout << "Elf\n";
+                    std::cout << "Dwarf\n";
                      p1 = Player(2);
                     break;
                 case 4:
@@ -265,7 +240,7 @@ void selectStartingPoint(){
         std::cin >> row;
         std::cout << "Enter col" << std::endl;
         std::cin >> col;
-        if(row < 0 || row > 7 || col < 0 || col > 7)//boundary checking
+        if(row < 0 || row > numRows-1 || col < 0 || col > numCols-1)//boundary checking
         {
             std::cout << "square is out of bounds, please try again" << std::endl;
         }
@@ -285,11 +260,12 @@ void selectStartingPoint(){
     while (validSelection == false);
 }
 
-void handleUserInput(){
+void handleUserInput(Player *pPtr){
     bool valid = true;
     char input;
     int tRow = pPtr->r;
     int tCol = pPtr->c;
+    char input2;
     std::cout<<"please enter command"<< std::endl;
     do
     {
@@ -298,56 +274,23 @@ void handleUserInput(){
         {
             case 'w'://north
             {
-                if (board.west(tRow,tCol) != 'W')
-                {
-                    std::cout<<"moving west"<< std::endl;
-                    int tRow = pPtr->r;
-                    int tCol = pPtr->c;
-                    board.move1(tRow,tCol,0,-1);//row,col
-                }
+                confirmMovement(tRow,tCol-1, pPtr);
                 valid = true;
                 break;
             }
             case 's'://south
             {
-                if (board.south(tRow,tCol) != 'W')
-                {
-                    std::cout<<"moving south"<< std::endl;
-                    int tRow = pPtr->r;
-                    int tCol = pPtr->c;
-                    board.move1(tRow,tCol,1,0);//row,col
-                    valid = true;
-                }
-                else
-                    std::cout<<"a wall impedes your path"<< std::endl;
+                confirmMovement(tRow+1,tCol, pPtr);
                 break;
             }
             case 'e'://east
             {
-                if (board.east(tRow,tCol) != 'W')
-                {
-                    std::cout<<"moving east"<< std::endl;
-                    int tRow = pPtr->r;
-                    int tCol = pPtr->c;
-                    board.move1(tRow,tCol,0,1);
-                    valid = true;
-                }
-                else
-                    std::cout<<"a wall impedes your path"<< std::endl;
+                confirmMovement(tRow,tCol+1, pPtr);
                 break;
             }
             case 'n'://north
             {
-                if (board.north(tRow,tCol) != 'W')
-                {
-                    std::cout<<"moving north"<< std::endl;
-                    int tRow = pPtr->r;
-                    int tCol = pPtr->c;
-                    board.move1(tRow,tCol,-1,0);
-                    valid = true;
-                }
-                else
-                    std::cout<<"a wall impedes your path"<< std::endl;
+                confirmMovement(tRow-1,tCol, pPtr);
                 break;
             }
             case 'd'://look
@@ -374,23 +317,56 @@ void handleUserInput(){
         }
         int testRow = pPtr->r;
         int testCol = pPtr->c;
-        if(board(testRow,testCol).id!= 'P'){
-            std::cout<<"ERROR: Board and player out of sync"<< std::endl;
-            //board(testRow,testCol).id = 'P';
-            std::cout<<"real player row: " << testRow<< std::endl;
-            std::cout<<"real player col: " << testCol << std::endl;
-            std::cout<<"board player id: " << board(testRow,testCol).id << std::endl;
-        }
+//        if(board(testRow,testCol).id!= 'P'){
+//            std::cout<<"ERROR: Board and player out of sync"<< std::endl;
+//        }
     }
     while(valid == false);
 }
-
-void checkSquare(){
-    std::cout<< "you look north and see " << board.north(1,1) << std::endl;
-    std::cout<< "you look south and see "  << board.south(1,1) << std::endl;
-    std::cout<< "you look east and see "  << board.east(1,1) << std::endl;
-    std::cout<< "you look west and see " << board.west(1,1) << std::endl;
-        
+    
+void confirmMovement(int r, int c, Player *pPtr){
+    char ds = board(r,c).id;
+    int tRow = pPtr->r;
+    int tCol = pPtr->c;
+    std::cout<<"player current row "<< tRow << std::endl;
+    std::cout<<"player current col "<< tCol << std::endl;
+    switch(ds){
+        case 'W':
+            std::cout<<"a wall impedes your path"<< std::endl;
+        break;
+        case 'E':
+        {
+            std::cout<<"you are standing beside an enemy"<< std::endl;
+            if(board(pPtr->r,pPtr->c).id == 'P')
+                board(pPtr->r,pPtr->c).id = ' ';
+            pPtr->r = r;
+            pPtr->c = c;
+        break;
+        }
+        case 'I':
+        {
+            std::cout<<"you are standing beside an item"<< std::endl;
+            if(board(pPtr->r,pPtr->c).id == 'P')
+                board(pPtr->r,pPtr->c).id = ' ';
+            pPtr->r = r;
+            pPtr->c = c;
+        break;
+        }
+        case ' ':
+        {
+            std::cout<<"you are standing on empty square"<< std::endl;
+            if(board(pPtr->r,pPtr->c).id == 'P')
+                board(pPtr->r,pPtr->c).id = ' ';
+            
+            pPtr->r = r;
+            pPtr->c = c;
+            board(r,c).id = 'P';
+        break;
+        }
+        default:
+            break;
+    }
+    
 }
 
 void look(Player *p){

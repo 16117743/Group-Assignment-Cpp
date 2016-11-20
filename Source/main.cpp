@@ -10,9 +10,14 @@
 #include "Inventory.h"
 #include <ctime>
 #include "Item.h"
+#include "Wall.h"
 #include <memory>
 
 using namespace std;
+
+
+Player p1;//player
+Player *pPtr;
 
 /* Board class */
 template<typename T>
@@ -24,34 +29,42 @@ public:
     Board(size_t R, size_t C) : data(R*C), cols(C) {}
     T operator()(size_t r, size_t c) const { return data[cols*r+c]; }
     T& operator()(size_t r, size_t c) { return data[cols*r+c]; }
-    void move1(size_t r, size_t c,size_t ns, size_t ew) { 
+    void move1(size_t r, size_t c,size_t r1, size_t c1) { 
         data[cols*r+c].id = '0';
-        data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         std::cout << "***move****\nprev:\n[" << r << "][" << c << "]" <<  data[cols*r+c].id << "\n";
-        std::cout << "\ncurrent:\n[" << (r+ew) << "][" << (c+ns) << "]" <<  data[cols*(r+ew)+(c+ns)].id << "\n";
+        r+= r1;
+        c += c1;
+        data[cols*r+c].id = 'P';//x , y
+        std::cout << "\ncurrent:\n[" << (r) << "][" << (c) << "]" <<  data[cols*(r)+(c)].id << "\n";
+        std::cout<< "boards p row " << r << std::endl;
+        std::cout<< "boards p col " << c << std::endl;
+        std::cout<< "boards p id " << data[cols*r+c].id << std::endl;
+        pPtr->r = r;
+        pPtr->c = c;
+        
     }
     char north(size_t r, size_t c){
-        std::cout<< "row = " << r << std::endl;
-        std::cout<< "col = " << c << std::endl;
+//        std::cout<< "current row = " << r << std::endl;
+//        std::cout<< "current col = " << c << std::endl;
         //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r-1)+(c+(0))].id;//x , y
     }
     char south(size_t r, size_t c){
-        std::cout<< "row = " << r << std::endl;
-        std::cout<< "col = " << c << std::endl;
+//        std::cout<< "current row = " << r << std::endl;
+//        std::cout<< "current col = " << c << std::endl;
         //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r+(1))+(c+0)].id;//x , y
     }
     char west(size_t r, size_t c){
-        std::cout<< "row = " << r << std::endl;
-        std::cout<< "col = " << c << std::endl;
+//        std::cout<< "current row = " << r << std::endl;
+//        std::cout<< "current col = " << c << std::endl;
         //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r+0)+(c-1)].id;//x , y
     }
     
     char east(size_t r, size_t c){
-        std::cout<< "row = " << r << std::endl;
-        std::cout<< "col = " << c << std::endl;
+//        std::cout<< "current row = " << r << std::endl;
+//        std::cout<< "current col = " << c << std::endl;
         //data[cols*(r+ew)+(c+ns)].id = 'P';//x , y
         return data[cols*(r+0)+(c+1)].id;//x , y
     }
@@ -75,8 +88,6 @@ Board<Enemy> boardCharacters(numRows, numCols);//board declared as global variab
 //Board<BoardObject> Arr2D(numRows, numCols);//board declared as global variable
 
 
-Player p1;//player
-Player *pPtr;
 //vector<BoardObject*> board;
 
 /********prototype functions*****/
@@ -110,18 +121,6 @@ int main(int argc, char** argv) {
        handleUserInput(); 
        printBoard();
     }
-    
-    //printBoard();
-    
-    //checkSquare();
-    //handleUserInput();
-    /*Enemy e1(1);
-    e1.displayStats();
-    generateItemForEnemy(e1);
-    e1.displayStats();
-    Player p(2);*/
-
-    //generateItem(e1);
     return 0;
 }
 
@@ -134,75 +133,69 @@ void createBoard(){
        {
            int rand1 = rand()%5;
            createBoardOject(rand1,i,j, board);
-            if(i%numRows == 0 || i%numRows== numRows-1){
-                board(i,j).id == 'W'; 
-                std::cout << "row [" << i << "] col[" << j << "] =" << board(i,j).id << std::endl;
-            }
-            if(j%numCols == 0 || j%numCols== numCols-1){
-                board(i,j).id == 'W'; 
-                std::cout << "row [" << i << "] col[" << j << "] =" << board(i,j).id << std::endl;
-            }
        }
     }
 }
 
 //creates a random object on the board
 void createBoardOject(int val, int row, int col, Board <BoardObject> Arr2D){
-    switch(val){
-        case 0:
-        {
-            //Item i1;
-            board(row,col) = Item();
-            boardItems(row,col) = Item();
-            break;
-        }
-        case 1:
-        {
-            //Item em1;
-            board(row,col) = Item();
-            break;
-        }
-        case 2:
-        { 
-            //Enemy em1;
-            board(row,col) = Enemy();
-//            Enemy en1;
-//            board(row,col) = en1;
-//            boardCharacters(row,col).generateItemForEnemy();
-            break;
-        }
-        case 3:
-        {
-            //Empty em1;
-            board(row,col) = Empty();
-            break;
-        }
-        default:
-        {
-            Empty em1;
-            board(row,col) = em1;
-        }    
+    if(row%numRows == 0 || row%numRows== numRows-1)
+    {
+        board(row,col)= Wall();
+        std::cout << "!!!!!!row [" << row << "] col[" << col << "] =" << board(row,col).id << std::endl;
     }
-    //std::cout << "row%numrows = " << row%numRows << std::endl;
-    //std::cout << "col%numcolls = " << col%numCols << std::endl;
-    //std::cout << "row [" << row << "] col[" << col << "] = board(row,col).id " << std::endl;
-    if(row%numRows == 0 || row%numRows== numRows-1){
-       board(row,col).id == 'W'; 
+    else if(col%numCols == 0 || col%numCols== numCols-1)
+    {
+        board(row,col)= Wall(); 
+        std::cout << "!!!!!!!!row [" << row << "] col[" << col << "] =" << board(row,col).id << std::endl;
     }
-    if(col%numCols == 0 || col%numCols== numCols-1){
-       board(row,col).id == 'W'; 
+    else
+    {
+        switch(val)
+        {
+            case 0:
+            {
+                board(row,col) = Item();
+                boardItems(row,col) = Item();
+                break;
+            }
+            case 1:
+            {
+                board(row,col) = Item();
+                break;
+            }
+            case 2:
+            { 
+                board(row,col) = Enemy();
+                boardCharacters(row,col) = Enemy();
+                boardCharacters(row,col).generateItemForEnemy();
+                break;
+            }
+            case 3:
+            {
+                board(row,col) = Empty();
+                break;
+            }
+            default:
+            {
+                Empty em1;
+                board(row,col) = em1;
+            }    
+        }
     }
-    std::cout << "row [" << row << "] col[" << col << "] =" << board(row,col).id << std::endl;
 }
 
 //prints the board
-void printBoard(){
-    for (size_t i = 0; i < numRows; i++) {
-            for (size_t j = 0; j < numCols; j++) {
-                std::cout << "["<< i << "][" << j << "]" << board(i,j).id << ", ";//print the type of Board Object
-            }
-            std::cout << '\n';
+void printBoard()
+{
+    for (size_t i = 0; i < numRows; i++)
+    {
+        for (size_t j = 0; j < numCols; j++)
+        {
+            std::cout << "["<< i << "][" << j << "]" << board(i,j).id << ", ";//print the type of Board Object
         }
+        std::cout << '\n';
+    }
 }
 
 void startup(){
@@ -227,7 +220,8 @@ int raceSelection(){
         else
         {
             std::cout << "You have selected the race ";
-            switch(selection){
+            switch(selection)
+            {
                 case 1:
                     std::cout << "Human\n";
                     p1 = Player(0);
@@ -275,18 +269,16 @@ void selectStartingPoint(){
         {
             std::cout << "square is out of bounds, please try again" << std::endl;
         }
-//        else if (board(row,col).id!= ' ') // square is not empty
-//        {
-//            std::cout << "Square is not empty, please try again" << std::endl;
-//        }
-        else{
+        else if (board(row,col).id!= ' ') // square is not empty
+        {
+            std::cout << "Square is not empty, please try again" << std::endl;
+        }
+        else
+        {
             std::cout << "You have selected a valid starting point, the game will now begin" << std::endl;
             board(row,col) = Player();    
             pPtr->r = row;
             pPtr->c = col;
-            std::cout<< "boards p id " << board(row,col).id << std::endl;
-            std::cout<< "actual p row " << row << std::endl;
-            std::cout<< "actual p col " << col << std::endl;
             validSelection = true;
         }
     }
@@ -296,6 +288,8 @@ void selectStartingPoint(){
 void handleUserInput(){
     bool valid = true;
     char input;
+    int tRow = pPtr->r;
+    int tCol = pPtr->c;
     std::cout<<"please enter command"<< std::endl;
     do
     {
@@ -304,66 +298,56 @@ void handleUserInput(){
         {
             case 'w'://north
             {
-                std::cout<<"moving west"<< std::endl;
-                int tRow = pPtr->r;
-                int tCol = pPtr->c;
-                board.move1(tRow,tCol,0,-1);//row,col
-                pPtr->c+= (-1);
-                tCol = pPtr->c;
-                std::cout<< "boards p id " << board(tRow,tCol).id << std::endl;
-                std::cout<< "boards p row " << board(tRow,tCol).r << std::endl;
-                std::cout<< "boards p col " << board(tRow,tCol).c << std::endl;
-                std::cout<< "actual p row " << pPtr->r << std::endl;
-                std::cout<< "actual p col " << pPtr->c << std::endl;
+                if (board.west(tRow,tCol) != 'W')
+                {
+                    std::cout<<"moving west"<< std::endl;
+                    int tRow = pPtr->r;
+                    int tCol = pPtr->c;
+                    board.move1(tRow,tCol,0,-1);//row,col
+                }
                 valid = true;
                 break;
             }
             case 's'://south
             {
-                std::cout<<"moving south"<< std::endl;
-                int tRow = pPtr->r;
-                int tCol = pPtr->c;
-                board.move1(pPtr->r,pPtr->c,1,0);//
-                pPtr->r+=1;
-                tRow = pPtr->r;
-                std::cout<< "boards p id " << board(tRow,tCol).id << std::endl;
-                std::cout<< "boards p row " << board(tRow,tCol).r << std::endl;
-                std::cout<< "boards p col " << board(tRow,tCol).c << std::endl;
-                std::cout<< "actual p row " << pPtr->r << std::endl;
-                std::cout<< "actual p col " << pPtr->c << std::endl;
-                valid = true;
+                if (board.south(tRow,tCol) != 'W')
+                {
+                    std::cout<<"moving south"<< std::endl;
+                    int tRow = pPtr->r;
+                    int tCol = pPtr->c;
+                    board.move1(tRow,tCol,1,0);//row,col
+                    valid = true;
+                }
+                else
+                    std::cout<<"a wall impedes your path"<< std::endl;
                 break;
             }
             case 'e'://east
             {
-                std::cout<<"moving east"<< std::endl;
-                int tRow = pPtr->r;
-                int tCol = pPtr->c;
-                board.move1(pPtr->r,pPtr->c,0,1);
-                pPtr->c+=1;
-                tCol = pPtr->c;
-                std::cout<< "boards p id " << board(tRow,tCol).id << std::endl;
-                std::cout<< "boards p row " << board(tRow,tCol).r << std::endl;
-                std::cout<< "boards p col " << board(tRow,tCol).c << std::endl;
-                std::cout<< "actual p row " << pPtr->r << std::endl;
-                std::cout<< "actual p col " << pPtr->c << std::endl;
-                valid = true;
+                if (board.east(tRow,tCol) != 'W')
+                {
+                    std::cout<<"moving east"<< std::endl;
+                    int tRow = pPtr->r;
+                    int tCol = pPtr->c;
+                    board.move1(tRow,tCol,0,1);
+                    valid = true;
+                }
+                else
+                    std::cout<<"a wall impedes your path"<< std::endl;
                 break;
             }
-            case 'n'://west
+            case 'n'://north
             {
-                std::cout<<"moving north"<< std::endl;
-                int tRow = pPtr->r;
-                int tCol = pPtr->c;
-                board.move1(pPtr->r,pPtr->c,-1,0);
-                pPtr->r+= (-1);
-                tRow = pPtr->r;
-                std::cout<< "boards p id " << board(tRow,tCol).id << std::endl;
-                std::cout<< "boards p row " << board(tRow,tCol).r << std::endl;
-                std::cout<< "boards p col " << board(tRow,tCol).c << std::endl;
-                std::cout<< "actual p row " << pPtr->r << std::endl;
-                std::cout<< "actual p col " << pPtr->c << std::endl;
-                valid = true;
+                if (board.north(tRow,tCol) != 'W')
+                {
+                    std::cout<<"moving north"<< std::endl;
+                    int tRow = pPtr->r;
+                    int tCol = pPtr->c;
+                    board.move1(tRow,tCol,-1,0);
+                    valid = true;
+                }
+                else
+                    std::cout<<"a wall impedes your path"<< std::endl;
                 break;
             }
             case 'd'://look
@@ -392,9 +376,9 @@ void handleUserInput(){
         int testCol = pPtr->c;
         if(board(testRow,testCol).id!= 'P'){
             std::cout<<"ERROR: Board and player out of sync"<< std::endl;
-            board(testRow,testCol).id = 'P';
-            std::cout<<"real player row: " << pPtr->r << std::endl;
-            std::cout<<"real player col: " << pPtr->c << std::endl;
+            //board(testRow,testCol).id = 'P';
+            std::cout<<"real player row: " << testRow<< std::endl;
+            std::cout<<"real player col: " << testCol << std::endl;
             std::cout<<"board player id: " << board(testRow,testCol).id << std::endl;
         }
     }

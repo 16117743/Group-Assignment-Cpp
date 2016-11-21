@@ -28,14 +28,15 @@ public:
     Character(const Character& orig);
     ~Character();
     bool move(string direction);
-    void drop();
-    bool attack(Character *c);
+    void drop(int index);
+    void attack(Character *c,bool daynight);
     void displayStats();
     void displayStats2();
     bool pickup(Item *item);
     void updateStats(Item *item);
     void displayI();
     void displayE();
+    void updateOrcStats();
     //void printInventory();
 };
 

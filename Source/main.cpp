@@ -22,7 +22,6 @@ Player *pPtr;
 /* Board class */
 template<typename T>
 class Board {
-    //std::vector<std::unique_ptr<T> > data;
     std::vector<T> data;
     const size_t cols;
 public:
@@ -52,11 +51,18 @@ public:
     char east(size_t r, size_t c){
         return data[cols*(r+0)+(c+1)].id;//x , y
     }
+    char standingSquare(size_t r, size_t c){
+        return data[cols*(r)+(c)].id;//x , y
+    }
 };
 
 /*******Global variables******/
 const size_t numRows = 8;//number of rows on board
 const size_t numCols = 8;//number of cols on board
+int dayNightCtr =0;
+bool dayFlag = true;
+bool gameOverFlag = false;
+bool playAgain = true;
 
 Board<BoardObject> board(numRows, numCols);//board declared as global variable
 Board<Item> boardItems(numRows, numCols);//board declared as global variable
@@ -75,29 +81,62 @@ void generateItemForEnemy(Character &c);
 void generateRandomItem(int row, int col);
 void attackRound(Player *player, Character *enemy);
 bool isEnemyDefeated(Character *enemy);
-bool isGameOver(Player &player);
-void gameOver(Player &player);
+bool isGameOver(Player *player);
+void gameOver(Player *player);
 void update(Character &c);//updates player stats and board
 void handleUserInput(Player *pPtr);
 void checkSquare();
 void look(Player *p);
 void confirmMovement(int r, int c, Player *pPtr);
 void infoSquare(int r,int c,char ch);
-
+void exit();
 
 /*****************************************************************************************/
 int main(int argc, char** argv) {
     srand(time(0));// seed srand with time(0)
-    createBoard();//creates the board
-    printBoard();
-    startup();
-    pPtr = &p1;
-    
-    printBoard();
-    while(1){
-       handleUserInput(pPtr); 
-       printBoard();
+    char playAgainChar;
+    do
+    {
+        createBoard();//creates the board
+        printBoard();
+        startup();
+        pPtr = &p1;
+        do
+        {
+            handleUserInput(pPtr); 
+            dayNightCtr +=1;
+            if(dayNightCtr%10<5){
+                dayFlag= true;
+                std::cout << "it is day time\n";
+            }
+            else if(dayNightCtr%10>5){
+                dayFlag = false;
+                std::cout << "it is night time\n";
+            }
+            if(isGameOver(pPtr)==true){
+                gameOver(pPtr);
+                break;
+            }
+        }
+        while(gameOverFlag==false);
+        std::cout << "game over\nplay again y/n\n";
+        std::cin>>playAgainChar;
+        
+        if(playAgainChar == 'y'){
+           std::cout << "you have opted to play again\n";
+           playAgain = true;
+        }
+        else if(playAgainChar == 'n'){
+           std::cout << "you have opted not to play again\n";
+           playAgain = false;
+        }
+        else {
+           std::cout << "you did not choose 'y', the game will now end\n";
+           playAgain = false;
+        }
     }
+    while(playAgain==true);
+    std::cout << "Thank you for playing\n";
     return 0;
 }
 
@@ -220,8 +259,10 @@ void printBoard()
 }
 
 void startup(){
-    std::cout << "welcome to Group X Fantasy game\n Please enter number for selecting character race" << std::endl;
-    std::cout << "1- Human\n2-Elf\n3-Dwarf\n4-Hobbit\n5-Dwarf" << std::endl;
+    std::cout << "welcome to Group 8 Fantasy game\nCommands:\n"
+            "'a' = attack\n'n' = move north \n's' = move south\n'e' = move east\n'w' = move west\n'x' = exit current game"
+            "'p' = pickup item\n'i' = list inventory\n'd' = drop item\n'e' = exit game\n\nPlease enter number for selecting character race" << std::endl;
+    std::cout << "1-Human\n2-Elf\n3-Dwarf\n4-Hobbit\n5-Dwarf" << std::endl;
     raceSelection();
     selectStartingPoint();
 }
@@ -234,7 +275,7 @@ int raceSelection()
     do
     {
         std::cin >> selection;
-        if(selection < 1 || selection > 5)
+        if(selection < 1 || selection > 7)
         {
             std::cout << "invalid selection, please try again" << std::endl;
             validSelection = false;
@@ -287,20 +328,21 @@ void selectStartingPoint(){
         std::cin >> row;
         std::cout << "Enter col" << std::endl;
         std::cin >> col;
-        if(row < 0 || row > numRows-1 || col < 0 || col > numCols-1)//boundary checking
+        if(row <= 0 || row > numRows-1 || col <=0 || col > numCols-1)//boundary checking
         {
             std::cout << "square is out of bounds, please try again" << std::endl;
         }
-        else if (board(row,col).id!= ' ') // square is not empty
-        {
-            std::cout << "Square is not empty, please try again" << std::endl;
-        }
         else
         {
-            std::cout << "You have selected a valid starting point, the game will now begin" << std::endl;
-            board(row,col) = Player();    
+            if (board(row,col).id== ' '){ // square is not empty
+               //board(row,col) = Player(); 
+            }
+            std::cout << "You have selected a valid starting point, the game will now begin" << std::endl;  
             pPtr->r = row;
             pPtr->c = col;
+            int r = pPtr->r;
+            int c = pPtr->c;
+            confirmMovement(r, c , pPtr);
             validSelection = true;
         }
     }
@@ -333,7 +375,7 @@ void handleUserInput(Player *pPtr){
             }
             case 'e'://east
             {
-                confirmMovement(tRow,tCol+1, pPtr);
+                confirmMovement(tRow,tCol+1, pPtr);  
                 break;
             }
             case 'n'://north
@@ -349,7 +391,6 @@ void handleUserInput(Player *pPtr){
                     iPtr = boardItems(tRow,tCol);
                     if(pPtr->pickup(&iPtr)==true)
                     {
-                         std::cout<<"pickup success!"<< std::endl;
                          board(tRow,tCol).id = 'P';
                     }
                     else{
@@ -364,23 +405,43 @@ void handleUserInput(Player *pPtr){
             }
             case 'c'://character stats
             {
-                std::cout<<"****Character stats****"<< std::endl;
                 pPtr->displayStats();  
                 valid = true;
                 break;
             }
-            case 'd'://look
+            case 'd'://drop
             {
-                std::cout<<"drop"<< std::endl;
+                std::cout<<"****drop****"<< std::endl;
+                std::cout<<"choose type of item to drop by selecting corresponding index\n1-Weapon\n2-Armour\n3-Shield\n4-Rings"<< std::endl;
+                int choice;
+                bool validChoice = false;
+                do
+                {
+                    std::cin>> choice;
+                    if(choice > 0 || choice < 5){
+                        pPtr->drop(choice);
+                        validChoice = true;
+                        break;
+                    }
+                    else{
+                        validChoice = false;
+                        std::cout<<"Invalid choice, please select from within the index specified"<< std::endl;
+                    }
+                }
+                while(validChoice ==false);
                 valid = true;
                 break;
             }
             case 'a'://attack command
             {
                 std::cout<<"****attack****"<< std::endl;
-                ePtr = &boardCharacters(tRow,tCol);
-                attackRound(pPtr,ePtr);
-                //pPtr->attack(&boardCharacters(tRow,tCol));
+                if(board(tRow,tCol).id=='E'){
+                    ePtr = &boardCharacters(tRow,tCol);
+                    attackRound(pPtr,ePtr);
+                }
+                else
+                    std::cout << "there is no enemy here to attack\n";
+                
                 valid = true;
                 break;
             }
@@ -397,6 +458,11 @@ void handleUserInput(Player *pPtr){
                 valid = true;
                 break;
             }
+            case 'x':  {
+                std::cout<<"exit!"<< std::endl;
+                exit();
+                break;
+            }
             default:
             {
                 std::cout<<"not a valid command"<< std::endl;
@@ -404,13 +470,12 @@ void handleUserInput(Player *pPtr){
                 break;
             }
         }
-        int testRow = pPtr->r;
-        int testCol = pPtr->c;
-//        if(board(testRow,testCol).id!= 'P'){
-//            std::cout<<"ERROR: Board and player out of sync"<< std::endl;
-//        }
     }
     while(valid == false);
+}
+
+void exit(){
+    gameOverFlag = true;
 }
     
 void confirmMovement(int r, int c, Player *pPtr){
@@ -424,8 +489,6 @@ void confirmMovement(int r, int c, Player *pPtr){
         case 'E':
         {
             std::cout<<"you are standing beside an enemy"<< std::endl;
-            if(board(pPtr->r,pPtr->c).id == 'P')
-                board(pPtr->r,pPtr->c).id = ' ';
             pPtr->r = r;
             pPtr->c = c;
         break;
@@ -433,8 +496,6 @@ void confirmMovement(int r, int c, Player *pPtr){
         case 'I':
         {
             std::cout<<"you are standing beside an item"<< std::endl;
-            if(board(pPtr->r,pPtr->c).id == 'P')
-                board(pPtr->r,pPtr->c).id = ' ';
             pPtr->r = r;
             pPtr->c = c;
         break;
@@ -442,13 +503,14 @@ void confirmMovement(int r, int c, Player *pPtr){
         case ' ':
         {
             std::cout<<"you are standing on empty square"<< std::endl;
-            if(board(pPtr->r,pPtr->c).id == 'P')
-                board(pPtr->r,pPtr->c).id = ' ';
-            
             pPtr->r = r;
             pPtr->c = c;
             board(r,c).id = 'P';
         break;
+            std::cout<<"you are standing on empty square"<< std::endl;
+            pPtr->r = r;
+            pPtr->c = c;
+            board(r,c).id = 'P';
         }
         default:
             break;
@@ -478,6 +540,9 @@ void look(Player *p){
     ch = board.west(row,col);
     std::cout<< "\nyou look west and see " << std::endl;
     infoSquare(row,col-1,ch);
+    ch = board.standingSquare(row,col);
+    std::cout<< "\nyou look at the current square and see " << std::endl;
+    infoSquare(row,col,ch);
 }
 
 void infoSquare(int r,int c,char ch){
@@ -503,36 +568,41 @@ void infoSquare(int r,int c,char ch){
             std::cout<< "an Empty square:\n";// << board.north(row,col) << std::endl;
         break;
         default:
+            std::cout<< "an Empty square:\n";// << board.north(row,col) << std::endl;
         break;
     }
 }
 
 void attackRound(Player *player, Character *enemy){
-    std::cout << "Player attacks:\noutcome = ";
-    if(player->attack(enemy)==true)//if the attack was successful
-    {
-        if(isEnemyDefeated(enemy)==true){//enemy attacks back if not defeated
-            std::cout << "You have slain the enemy\n";
-            board(pPtr->r,pPtr->c).id = 'P';
-        }
-        else if(isEnemyDefeated(enemy)==false){//enemy attacks back if not defeated
-            std::cout << "Enemy attacks:\noutcome = ";
-            enemy->attack(player);
-        }
+    std::cout << "You try to attack the enemy:\n";
+    player->attack(enemy,dayFlag);
+    if(isEnemyDefeated(enemy)==true){//enemy attacks back if not defeated
+        std::cout << "You have slain the enemy\n";
+        board(pPtr->r,pPtr->c).id = ' ';
+        pPtr->gold += boardCharacters(pPtr->r,pPtr->c).def;
+        std::cout << "your now have " << pPtr->gold << " gold \n";
+    }
+    else if(isEnemyDefeated(enemy)==false){//enemy attacks back if not defeated
+        std::cout << "Enemy attacks:\noutcome = ";
+        enemy->attack(player,dayFlag);
+        std::cout << "Your stats:\n";
+        player->displayStats();
+        std::cout << "Enemy stats:\n";
+        enemy->displayStats();
     }
 }
 
-bool isGameOver(Player &player){
-    if(player.health <=0)
+bool isGameOver(Player *player){
+    if(player->health <=0)
         return true;
     else 
         return false;
 }
 
 
-void gameOver(Player &player){
+void gameOver(Player *player){
     std::cout << "You have been defeated, thank you for playing\n"<<std::endl;
-    std::cout << "You collected"<< player.gold << std::endl;
+    std::cout << "You collected "<< player->gold << " gold\nplay again? y/n\n" << std::endl;
 }
 
 bool isEnemyDefeated(Character *enemy){

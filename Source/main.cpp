@@ -49,7 +49,7 @@ using namespace std;//using std namespace
 /********Global variables********/
 const size_t numRows = 8;//number of rows on board
 const size_t numCols = 8;//number of cols on board
-int dayNightCtr =0;//int for counting the player's command, user in relation day night determination
+unsigned int dayNightCtr =0;//int for counting the player's command, user in relation day night determination
 bool dayFlag = true;////boolean for storing status of day or night
 bool gameOverFlag = false;//boolean for storing current game continuation status
 bool playAgain = true;//boolean for storing user's decision to play again
@@ -58,14 +58,14 @@ Player *pPtr;//pointer to player object
 
 /********prototype functions********/
 void createBoard();//create the board
-void createBoardOject(int val,int row,int col);//assign a board object to the board
+void createBoardOject(unsigned int val,unsigned int row,unsigned int col);//assign a board object to the board
 void printBoard();//prints the board for debugging purposes
 void startup();//initiates game start sequence by caling raceSelection() and sselectStartingPoint()
 int raceSelection();//asks user to input starting race selection
 void selectStartingPoint();//asks user to input starting square
 int randomItemTypeAssignment();//assigns a random item to the board
 void generateItemForEnemy(Character &c);//generates a random item for the enemy
-void generateRandomItem(int row, int col);//generates a random item 
+void generateRandomItem(unsigned int row, unsigned int col);//generates a random item 
 void attackRound(Player *player, Character *enemy);//initiates an attack sequence
 bool isEnemyDefeated(Character *enemy);//checks to see if the enemy has died
 bool isGameOver(Player *player);//checks to see if the player has died
@@ -74,8 +74,8 @@ void update(Character &c);//updates player stats and board
 void handleUserInput(Player *pPtr);//handles the user's input
 void checkSquare();//checks the current square
 void look(Player *p);//print infomation about surrounding squares
-void confirmMovement(int r, int c, Player *pPtr);//checks designated square to move to
-void infoSquare(int r,int c,char ch);//prints information about squares
+void confirmMovement(unsigned int r, unsigned int c, Player *pPtr);//checks designated square to move to
+void infoSquare(unsigned int r,unsigned int c,char ch);//prints information about squares
 void exit();//exits the current game
 
 /*********Board class************************************************ 
@@ -189,14 +189,14 @@ void createBoard()//creates the board
     {
        for (size_t j=0; j<numCols; ++j)//for cols
        {
-           int rand1 = rand()%5;//generate random val 0-4
+           unsigned int rand1 = rand()%5;//generate random val 0-4
            createBoardOject(rand1,i,j);//create board object
        }//end for j
     }//end for i
 }//end createBoard()
 
 //creates a random object on the board
-void createBoardOject(int val, int row, int col)//args = random value, row, col
+void createBoardOject(unsigned int val, unsigned int row, unsigned int col)//args = random value, row, col
 {
     if(row%numRows == 0 || row%numRows== numRows-1)//if its a wall boundary
     {
@@ -245,9 +245,9 @@ void createBoardOject(int val, int row, int col)//args = random value, row, col
 }//end createBoardOject
 
 //generates a random item
-void generateRandomItem(int row, int col)//args = row, col
+void generateRandomItem(unsigned int row, unsigned int col)//args = row, col
 {
-    int random = rand()%8;
+    unsigned int random = rand()%8;
     switch(random)//switch on random number generated between 0-7
     {
         case 0:// sword
@@ -319,7 +319,7 @@ void startup(){
 int raceSelection()//function for player to enter race selection
 {
     bool validSelection = false;//stores the validity of the user selection
-    int selection = -1;//stores the selection the user makes
+    unsigned int selection = -1;//stores the selection the user makes
     
     do//while (validSelection == false)
     {
@@ -374,8 +374,8 @@ int raceSelection()//function for player to enter race selection
 void selectStartingPoint()//use selects their starting point on the board
 {
     std::cout << "please select a valid starting point by indicating x and y coordinates\n (0 is the first index in a row or column)"<< std::endl;//print out
-    int row = -1;//stores row the user selects
-    int col = -1;//stores col the user selects
+    unsigned int row = -1;//stores row the user selects
+    unsigned int col = -1;//stores col the user selects
     bool validSelection = false;//stores status of valid selection
     do//while (validSelection == false)
     {
@@ -392,8 +392,8 @@ void selectStartingPoint()//use selects their starting point on the board
             std::cout << "You have selected a valid starting point, the game will now begin" << std::endl;//print out 
             pPtr->r = row;//assign player's row updated row
             pPtr->c = col;//assign player's col updated col
-            int r = pPtr->r;//assign player's row to r
-            int c = pPtr->c;//assign player's col to c
+            unsigned int r = pPtr->r;//assign player's row to r
+            unsigned int c = pPtr->c;//assign player's col to c
             confirmMovement(r, c , pPtr);//function 
             validSelection = true;//user entered a vlid selection
         }
@@ -405,8 +405,8 @@ void handleUserInput(Player *pPtr)//args = player pointer
 {
     bool valid = true;//boolean determines if user entered valid input
     char input;//stores input of the user
-    int tRow = pPtr->r;//assign player's row to tRow
-    int tCol = pPtr->c;//assign player's col to tCol
+    unsigned int tRow = pPtr->r;//assign player's row to tRow
+    unsigned int tCol = pPtr->c;//assign player's col to tCol
     Item iPtr;//item pointer
     Character *ePtr;//character pointer for enemy
     std::cout<<"please enter command"<< std::endl;//print out
@@ -469,7 +469,7 @@ void handleUserInput(Player *pPtr)//args = player pointer
             {
                 std::cout<<"****drop****"<< std::endl;//print out
                 std::cout<<"choose type of item to drop by selecting corresponding index\n1-Weapon\n2-Armour\n3-Shield\n4-Rings"<< std::endl;//print out
-                int choice;//stores the choice the user enters
+                unsigned int choice;//stores the choice the user enters
                 bool validChoice = false;//validChoice boolean for determining if user entered a valid choice
                 do//do while(validChoice ==false)
                 {
@@ -538,11 +538,9 @@ void exit()//exits the current game
     gameOverFlag = true;//assigning true breaks while loop in main function
 }//end exit()
     
-void confirmMovement(int r, int c, Player *pPtr)//args = row, col, player pointer
+void confirmMovement(unsigned int r,unsigned int c, Player *pPtr)//args = row, col, player pointer
 {
     char ds = board(r,c).id;//ds stores id of designated square
-    int tRow = pPtr->r;//assign player's row to tRow
-    int tCol = pPtr->c;//assign player's col to tCol
     switch(ds)
     {
         case 'W'://case square is a wall
@@ -582,8 +580,8 @@ void confirmMovement(int r, int c, Player *pPtr)//args = row, col, player pointe
 void look(Player *p)//args = player pointer
 {
     char ch;// stores the id of the boardObject
-    int row = p->r;//store the row the player is standing on
-    int col = p->c;//store the col the player is standing on
+    unsigned int row = p->r;//store the row the player is standing on
+    unsigned int col = p->c;//store the col the player is standing on
     std::cout<< "****Look****" << std::endl;//print "****Look****"
     
     ch = board.north(row,col);//print square status
@@ -606,7 +604,7 @@ void look(Player *p)//args = player pointer
     infoSquare(row,col,ch);//print square status
 }
 
-void infoSquare(int r,int c,char ch)//args = row index, col index, id of current square
+void infoSquare(unsigned int r,unsigned int c,char ch)//args = row index, col index, id of current square
 {
     switch(ch)//switch based on the id of the boardObject
     {
@@ -678,3 +676,4 @@ bool isEnemyDefeated(Character *enemy)//args = enemy pointer
     else
         return false;//return enemy is not defeated
 }
+

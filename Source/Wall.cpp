@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: Enemy.cpp
+ * Date: 24/11/16
+ * Author: Essa Alysami
+ * Class Description:
+ * Enemy class
  */
-
-/* 
- * File:   Wall.cpp
- * Author: tom
- * 
- * Created on 20 November 2016, 17:51
- */
-
 #include "Wall.h"
 
-Wall::Wall() {
+Wall::Wall()//default constructor
+{
     id = 'W';
 }
 
-Wall::Wall(const Wall& orig) {
-}
+Wall::Wall(const Wall& orig){}//copy constructor
 
-Wall::~Wall() {
-}
+Wall::~Wall() {}//deconstructor
 

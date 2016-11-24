@@ -12,7 +12,7 @@ public:
     BoardObject(int xx, int yy, char type);
     BoardObject(const BoardObject& orig);//copy constructor
     void test1(){std::cout<< "base\n";}  
-    virtual ~BoardObject() = default;
+    ~BoardObject();
 private:
 
 };

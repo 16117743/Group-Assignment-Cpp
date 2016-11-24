@@ -1,23 +1,28 @@
-#include "Inventory.h"
+/**
+ * File: Enemy.cpp
+ * Date: 24/11/16
+ * Author: Thomas Flynn
+ * Class Description:
+ * Enemy class
+ */
+
+#include "Inventory.h"//include header file for Inventory
 
 
-Inventory::Inventory() {
-}
+Inventory::Inventory() {}//default constructor
 
-Inventory::Inventory(const Inventory& orig) {
-}
+Inventory::Inventory(const Inventory& orig) {}//copy constructor
 
-Inventory::~Inventory() {
-}
+Inventory::~Inventory() {}//deconstructor
 
-bool Inventory::addItem(Item *iPtr) {
+bool Inventory::addItem(Item *iPtr)//takes a pointer to an item as an arg
+{
     std::cout << iPtr->name << " added to inventory\nA(" <<iPtr->atk<< 
             ") W(" << iPtr->weight<<
             ") D(" << iPtr->def<<
             ") H(" << iPtr->health<<
             ") S(" << iPtr->strength<< ")" << std::endl;
 
-            "\nadded to inventory\n";
     if(iPtr->type == "Weapon"){
         if(weapon.size()<1){
             weapon.push_back(new Item(iPtr));
@@ -94,7 +99,7 @@ void Inventory::printInventory() {
        std::cout << "defence: " << shield[0]->def << std::endl;
     }
     std::cout << "Rings:" << std::endl;
-    for(int i=0; i<rings.size(); ++i){
+    for(unsigned int i=0; i < rings.size(); ++i){
         std::cout << (i+1) << ") : " << rings[i]->name << std::endl;
         std::cout << "strength mod: " << rings[i]->strength << std::endl;
         std::cout << "health mod: " << rings[i]->health << std::endl;

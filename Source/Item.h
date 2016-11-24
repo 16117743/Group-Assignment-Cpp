@@ -1,123 +1,145 @@
-#ifndef ITEM_H
-#define ITEM_H
-#include "BoardObject.h"
-#include <string>
-#include <iostream>
-#include <ctime>
+/**
+ * File: Item.h
+ * Date: 24/11/16
+ * Authors: Thomas Flynn and Essa Alysami 
+ */
+#ifndef ITEM_H//if item header not defined
+#define ITEM_H//define it here
+#include "BoardObject.h"//include header for BoardObject
+#include <string>//include library for string
+#include <iostream>//include library for iostream
+#include <ctime>//include library for ctime
 
-class Item : public BoardObject {
-public:
-    int weight;
-    int atk;
-    int def;
-    int health;
-    int strength;
-    std::string name;
-    std::string type;
+class Item : public BoardObject //estends BoardObject
+{
+public://public constructors, attributes and member functions
+    /**Attributes*/
+    unsigned int weight;//attribute
+    unsigned int atk;//attribute
+    unsigned int def;//attribute
+    unsigned int health;//attribute
+    unsigned int strength;//attribute
+    std::string name;//attribute
+    std::string type;//attribute
+    /**Constructors*/
     Item();
     Item(const Item& orig);
     Item(Item *iPtr);
     virtual ~Item();
-    void displayI();
-    void displayE();
-    private:
+
+    /**Member functions*/
+    void displayI();//prints item information
+    void displayE();//prints item information
+    private://private constructors, attributes and member functions
 
 };
 
-class Weapon : public Item {
+class Weapon : public Item//extends item
+{
     public:
-    Weapon();
-    Weapon(const Item& orig);
-    virtual ~Weapon();
+    Weapon();//default constructor
+    Weapon(const Item& orig);//copy constructor
+    virtual ~Weapon();//virtual deconstructor
     private:
 };
 
-class Sword : public Weapon {
+class Sword : public Weapon 
+{
     public:
-    Sword();
-    Sword(const Item& orig);
-    virtual ~Sword();
+    Sword();//default constructor
+    Sword(const Item& orig);//copy constructor
+    virtual ~Sword();//virtual deconstructor
     private:
 };
 
-class Dagger : public Weapon {
+class Dagger : public Weapon 
+{
     public:
-    Dagger();
-    Dagger(const Item& orig);
-    virtual ~Dagger();
+    Dagger();//default constructor
+    Dagger(const Item& orig);//copy constructor
+    virtual ~Dagger();//virtual deconstructor
     private:
 };
 
-class Armour : public Item {
+class Armour : public Item //extends item
+{
     public:
-    Armour();
-    Armour(const Item& orig);
-    virtual ~Armour();
+    Armour();//default constructor
+    Armour(const Item& orig);//copy constructor
+    virtual ~Armour();//virtual deconstructor
     private:
 };
 
-class PlateArmour : public Armour {
+class PlateArmour : public Armour 
+{
     public:
-    PlateArmour();
-    PlateArmour(const Item& orig);
-    virtual ~PlateArmour();
+    PlateArmour();//default constructor
+    PlateArmour(const Item& orig);//copy constructor
+    virtual ~PlateArmour();//virtual deconstructor
     private:
 };
 
-class LeatherArmour : public Armour {
+class LeatherArmour : public Armour 
+{
     public:
-    LeatherArmour();
-    LeatherArmour(const Item& orig);
-    virtual ~LeatherArmour();
+    LeatherArmour();//default constructor
+    LeatherArmour(const Item& orig);//copy constructor
+    virtual ~LeatherArmour();//virtual deconstructor
     private:
 };
 
-class Shield : public Item {
+class Shield : public Item//extends item
+{
     public:
-    Shield();
-    Shield(const Item& orig);
-    virtual ~Shield();
+    Shield();//default constructor
+    Shield(const Item& orig);//copy constructor
+    virtual ~Shield();//virtual deconstructor
     private:
 };
 
-class SmallShield : public Shield {
+class SmallShield : public Shield //extends item
+{
     public:
-    SmallShield();
-    SmallShield(const Item& orig);
-    virtual ~SmallShield();
+    SmallShield();//default constructor
+    SmallShield(const Item& orig);//copy constructor
+    virtual ~SmallShield();//virtual deconstructor
     private:
 };
 
-class LargeShield : public Shield {
+class LargeShield : public Shield //extends item
+{
     public:
-    LargeShield();
-    LargeShield(const Item& orig);
-    virtual ~LargeShield();
+    LargeShield();//default constructor
+    LargeShield(const Item& orig);//copy constructor
+    virtual ~LargeShield();//virtual deconstructor
     private:
 };
 
-class Ring : public Item {
+class Ring : public Item //extends item
+{
     public:
         
-    Ring();
-    Ring(const Item& orig);
-    virtual ~Ring();
+    Ring();//default constructor
+    Ring(const Item& orig);//copy constructor
+    virtual ~Ring();//virtual deconstructor
     private:
 };
 
-class RingOfLife : public Ring {
+class RingOfLife : public Ring //extends item
+{
     public:
-    RingOfLife();
-    RingOfLife(const Item& orig);
-    virtual ~RingOfLife();
+    RingOfLife();//default constructor
+    RingOfLife(const Item& orig);//copy constructor
+    virtual ~RingOfLife();//virtual deconstructor
     private:
 };
 
-class RingOfStrength : public Ring {
+class RingOfStrength : public Ring //extends item
+{
     public:
-    RingOfStrength();
-    RingOfStrength(const Item& orig);
-    virtual ~RingOfStrength();
+    RingOfStrength();//default constructor
+    RingOfStrength(const Item& orig);//copy constructor
+    virtual ~RingOfStrength();//virtual deconstructor
     private:
 };
 

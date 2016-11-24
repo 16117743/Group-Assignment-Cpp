@@ -1,5 +1,5 @@
 /**
- * File: Enemy.cpp
+ * File: Empty.cpp
  * Date: 24/11/16
  * Author: Essa Alysami
  * Enemy class

@@ -1,9 +1,9 @@
 /**
  * File: Item.h
  * Date: 24/11/16
- * Authors: Thomas Flynn and Essa Alysami 
+ * Authors: Thomas Flynn and Essa Alyami 
  */
-#ifndef ITEM_H//if item header not defined
+#ifndef ITEM_H//if header not defined
 #define ITEM_H//define it here
 #include "BoardObject.h"//include header for BoardObject
 #include <string>//include library for string
@@ -22,10 +22,10 @@ public://public constructors, attributes and member functions
     std::string name;//attribute
     std::string type;//attribute
     /**Constructors*/
-    Item();
-    Item(const Item& orig);
-    Item(Item *iPtr);
-    virtual ~Item();
+    Item();//default constructor
+    Item(const Item& orig);//copy constructor
+    Item(Item *iPtr);//constructor taking a pointer to an item as an argument
+    virtual ~Item();//virtual deconstructor
 
     /**Member functions*/
     void displayI();//prints item information

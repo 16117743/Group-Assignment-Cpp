@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: Empty.h
+ * Date: 24/11/16
+ * Authors: Essa Alyami 
  */
-
-/* 
- * File:   Empty.h
- * Author: tom
- *
- * Created on 12 November 2016, 13:07
- */
-
-#ifndef EMPTY_H
-#define EMPTY_H
+#ifndef EMPTY_H//if header not defined
+#define EMPTY_H//define it here
 #include "BoardObject.h"
 
 class Empty : public BoardObject {
-public:
-    Empty();
-    Empty(const Empty& orig);
-    virtual ~Empty();
+public://public constructors, attributes and member functions
+    Empty();//default constructor
+    Empty(const Empty& orig);//copy constructor
+    virtual ~Empty();//virtual deconstructor
 private:
 
 };

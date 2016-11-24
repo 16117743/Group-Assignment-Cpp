@@ -3,7 +3,7 @@
  * Date: 24/11/16
  * Author: Thomas Flynn
  * Class Description:
- * Enemy class
+ * Enemy class provides extended functionality for enemy objects which are of type character.
  */
 #include "Enemy.h"//include header file for enemy
 Enemy::Enemy() //default constructor

@@ -1,14 +1,21 @@
-/*********Group x Assignment************************************************ 
- * Date:
- *  23-11-
+/*********Group 11 C++ Assignment************************************************ 
+ * File: main.cpp
+ * Date:  23-11-16
  * Members: 
- *  Thomas Flynn 16117743,
- *  Mashhour Alysami, 
- *  Essa Alysami, 
- *  Raksha Ramdaas
- * 
+ *  Thomas Flynn, 16117743
+ *  Mashhour Alyami, 15065073
+ *  Essa Alyami, 16032063
+ *  Raksha Ramdas, 16052439
+ *
+ * Roles:
+ *  Thomas Flynn: Lead developer
+ *  Mashhour Alyami: Developed Character class and created STL document
+ *  Essa Alyami: Developed Item, Wall, and BoardOject class
+ *  Raksha Ramdas: Drew up UML plan and created makefile
+ *
  * Game Description:
- *  Player plays the role of an Human, Elf, Dwarf, Hobbit or Orc.
+ *  Fantasy Game played through a text interface. The aim
+ *  of the game is to collect as much gold as possible by defeating enemy characters.
  * 
  * Objectives not achieved:
  *  1-Dynamic allocation of board size functionality
@@ -23,10 +30,10 @@
  *  4-Couldn't transfer functionality built in main to Game class
  * 
  * Solutions:
- *  1-Reconfigure the Board class
- *  2-Implement deconstructor for item class
+ *  1-Reconfigure the Board class to not be initialized with const int
+ *  2-Implement deconstructor for item class or use unique pointer
  *  3-Reconfigure the inventory class implementation
- *  4-Couldn't transfer functionality built in main to Game class
+ *  4-Start initial development around "Game" class and build from there.
  *************************************************************************/
 
 #include <cstdlib>//include library for castlib
@@ -64,14 +71,14 @@ void startup();//initiates game start sequence by caling raceSelection() and sse
 int raceSelection();//asks user to input starting race selection
 void selectStartingPoint();//asks user to input starting square
 int randomItemTypeAssignment();//assigns a random item to the board
-void generateItemForEnemy(Character &c);//generates a random item for the enemy
-void generateRandomItem(unsigned int row, unsigned int col);//generates a random item 
-void attackRound(Player *player, Character *enemy);//initiates an attack sequence
-bool isEnemyDefeated(Character *enemy);//checks to see if the enemy has died
-bool isGameOver(Player *player);//checks to see if the player has died
-void gameOver(Player *player);//prints the amount of gold a player has collected
-void update(Character &c);//updates player stats and board
-void handleUserInput(Player *pPtr);//handles the user's input
+void generateItemForEnemy(Character &c);//generates a random item for the enemy, takes character refernce as param
+void generateRandomItem(unsigned int row, unsigned int col);//generates a random item , take row and col as param
+void attackRound(Player *player, Character *enemy);//initiates an attack sequence, takes player and character pointers as params
+bool isEnemyDefeated(Character *enemy);//checks to see if the enemy has died, takes enemy pointer as param
+bool isGameOver(Player *player);//checks to see if the player has died, takes player pointer as param
+void gameOver(Player *player);//prints the amount of gold a player has collected, takes player pointer as param
+void update(Character &c);//updates player stats and board, take a reference to character object as param
+void handleUserInput(Player *pPtr);//handles the user's input, takes player pointer as param
 void checkSquare();//checks the current square
 void look(Player *p);//print infomation about surrounding squares
 void confirmMovement(unsigned int r, unsigned int c, Player *pPtr);//checks designated square to move to

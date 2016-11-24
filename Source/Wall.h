@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: Wall.h
+ * Date: 24/11/16
+ * Authors: Thomas Flynn and Essa Alyami 
  */
-
-/* 
- * File:   Wall.h
- * Author: tom
- *
- * Created on 20 November 2016, 17:51
- */
-
-#ifndef WALL_H
-#define WALL_H
-#include "BoardObject.h"
-class Wall: public BoardObject {
-public:
-    Wall();
-    Wall(const Wall& orig);
-    virtual ~Wall();
-private:
+#ifndef WALL_H//if header not defined
+#define WALL_H//define it here
+#include "BoardObject.h"//include header file
+class Wall: public BoardObject//extends BoardObject
+ {
+public://public constructors, attributes and member functions
+    Wall();//constructor
+    Wall(const Wall& orig);//copy constructor
+    virtual ~Wall();//virtual deconstructor
+private://private constructors, attributes and member functions
 
 };
 

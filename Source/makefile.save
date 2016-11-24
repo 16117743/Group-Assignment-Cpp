@@ -32,5 +32,5 @@ Wall.o: Wall.cpp Wall.h
 Empty.o: Empty.cpp Empty.h
 	g++ -Wall -g -c Empty.cpp
 
-clean:
-	-rm *.o 
+.PHONY: clean
+	

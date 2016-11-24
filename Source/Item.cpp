@@ -1,9 +1,9 @@
 /**
  * File: Item.cpp
  * Date: 24/11/16
- * Author: Essa Alysami
+ * Author: Thomas Flynn and Essa Alysami
  * Class Description:
- * Enemy class
+ * Provides functionality for items.
  */
 #include "Item.h"
 

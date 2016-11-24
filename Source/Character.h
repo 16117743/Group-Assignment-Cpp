@@ -1,10 +1,10 @@
 /**
  * File: Character.h
  * Date: 24/11/16
- * Authors: Thomas Flynn and Mashhour Alysami 
+ * Authors: Thomas Flynn and Mashhour Alyami 
  */
 #include "BoardObject.h"//include header file for 
-#ifndef Character_h//if character header not defined
+#ifndef Character_h//if header not defined
 #define Character_h //define it here 
 #include "Item.h"//include header file for Item.h
 #include "Inventory.h"//include header file for Inventory.h
@@ -16,7 +16,7 @@ using namespace std;//using std namespace
 
 class Character : public BoardObject//character extends BoardObject
 {
-private://private attributes
+private://private constructors, attributes and member functions
     
 public://public constructors, attributes and member functions
     /**Atributes*/

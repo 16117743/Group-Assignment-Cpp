@@ -1,13 +1,14 @@
 /**
  * File: Character.cpp
  * Date: 24/11/16
- * Authors: Thomas Flynn and Mashhour Alysami
- * Class Description:
- * Character class 
+ * Authors: Thomas Flynn and Mashhour Alyami
+ * Class Description
+ * Provides funtionality as the base class for player and enemy objects.
  */
-#include "Character.h"
+#include "Character.h"//include header
 
-Character::Character() {
+Character::Character() //default constructor
+{
 }
 
 //Constructor
@@ -88,7 +89,7 @@ void Character::displayStats()//display attributes of the character
             ") H(" << health << ") S(" << strength << ")\n";
 }
 
-void Character::displayE()
+void Character::displayE()//displays character's attributes
 {
     std::cout << "Race: " << race;//print out
     std::cout << "\nAttack: " << atk;//print out
@@ -99,7 +100,7 @@ void Character::displayE()
     std::cout << "\nStrength: " << strength << std::endl;//print out
 }
 
-void Character::displayI()
+void Character::displayI()//displays character's attributes
 {
     std::cout << "Race: " << race;//print out
     std::cout << "\nAttack: " << atk;//print out
@@ -110,9 +111,9 @@ void Character::displayI()
     std::cout << "\nStrength: " << strength << std::endl;//print out
 }
 
-void Character::displayStats2()
+void Character::displayStats2()//displays inventory
 {
-    inventory.printInventory();
+    inventory.printInventory();//displays inventory
 }
 
 void Character::updateOrcStats()//called to update Orc's attributes after stats changing due to day or night
@@ -124,21 +125,21 @@ void Character::updateOrcStats()//called to update Orc's attributes after stats 
         this->def+= this->inventory.weapon[0]->def;//update traits
         this->health+= this->inventory.weapon[0]->health;//update traits
     }
-    if(this->inventory.armour.size()>0)
+    if(this->inventory.armour.size()>0)//if the character has armour then update traits
     {
         this->strength-= this->inventory.armour[0]->weight;//update traits
         this->atk+= this->inventory.armour[0]->atk;//update traits
         this->def+= this->inventory.armour[0]->def;//update traits
         this->health+= this->inventory.armour[0]->health;//update traits
     }
-    if(this->inventory.shield.size()>0)
+    if(this->inventory.shield.size()>0)//if the character has a shield then update traits
     {
         this->strength-= this->inventory.shield[0]->weight;//update traits
         this->atk+= this->inventory.shield[0]->atk;//update traits
         this->def+= this->inventory.shield[0]->def;//update traits
         this->health+= this->inventory.shield[0]->health;//update traits
     }
-    for(unsigned int i=0; i< this->inventory.rings.size(); ++i)
+    for(unsigned int i=0; i< this->inventory.rings.size(); ++i)//if the character has rings then update traits
     {
         this->strength-= this->inventory.rings[0]->weight;//update traits
         this->atk+= this->inventory.rings[0]->atk;//update traits
@@ -147,6 +148,7 @@ void Character::updateOrcStats()//called to update Orc's attributes after stats 
     }
 }//updateOrcStats
 
+//member function for 2 characters to attack each other.
 void Character::attack(Character *c, bool daynight)//args = defendingCharacter pointer, boolean that signals day or night
 {
     if(c->race == "Orc")//if defending character is an orc
